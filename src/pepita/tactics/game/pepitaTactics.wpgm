@@ -1,7 +1,10 @@
 import wollok.game.*
+import config.*
 
 
 program pepitaTactics {
+	
+	config.configureGame()
 
 	game.start()
 
