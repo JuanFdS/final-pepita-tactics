@@ -6,8 +6,13 @@ object juego {
 	var property tiles = []
 
 	method pintarPosiciones(posiciones) {
-		tiles.forEach { tile => game.removeVisual(tile) }
+		self.despintarPosiciones()
 		tiles = posiciones.map { posicion => new TilePintada(posicion=posicion) }
 		tiles.forEach { tile => game.addVisual(tile) }
+	}
+	
+	method despintarPosiciones() {
+		tiles.forEach { tile => game.removeVisual(tile)}
+		tiles.clear()
 	}
 }

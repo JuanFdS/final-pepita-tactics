@@ -1,6 +1,8 @@
 import wollok.game.*
 import pepita.tactics.model.hero.*
 import pepita.tactics.game.juego.*
+import pepita.tactics.model.selector.*
+
 
 object config {
 
@@ -12,19 +14,29 @@ object config {
 		game.width(self.width())
 		game.height(self.height())
 		self.addCharacters()
+		self.addSelector()
 		self.addKeyMap()
 	}
 
 	method addCharacters() {
 		game.addVisual(hero)
 	}
+	
+	method addSelector() {
+		game.addVisual(selector)
+	}
 
 	method addKeyMap() {
-		keyboard.r().onPressDo { hero.meQuieroMover() }
-		keyboard.down().onPressDo{ hero.position(hero.position().down(1))}
-		keyboard.up().onPressDo{ hero.position(hero.position().up(1))}
-		keyboard.left().onPressDo{ hero.position(hero.position().left(1))}
-		keyboard.right().onPressDo{ hero.position(hero.position().right(1))}
+	
+		keyboard.down().onPressDo{ selector.position(selector.position().down(1))}
+		keyboard.up().onPressDo{ selector.position(selector.position().up(1))}
+		keyboard.left().onPressDo{ selector.position(selector.position().left(1))}
+		keyboard.right().onPressDo{ selector.position(selector.position().right(1))}
+		keyboard.z().onPressDo{ if(selector.position() == hero.position()) 
+			selector.seleccionarPersonaje(hero)
+			else
+			selector.seleccionarPosicion()
+		}
 	}
 
 }

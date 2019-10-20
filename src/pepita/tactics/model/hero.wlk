@@ -11,6 +11,10 @@ object hero {
 	method meQuieroMover() {
 		juego.pintarPosiciones(self.posicionesALasQueMePuedoMover())
 	}
+	
+	method finalizarMovimiento() {
+		juego.despintarPosiciones()
+	}
 
 	method posicionesALasQueMePuedoMover() {
 		var positions = []
