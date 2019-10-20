@@ -1,0 +1,8 @@
+import wollok.game.*
+
+
+program pepitaTactics {
+
+	game.start()
+
+}
