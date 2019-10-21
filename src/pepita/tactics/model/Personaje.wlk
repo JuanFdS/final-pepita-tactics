@@ -2,6 +2,8 @@ import pepita.tactics.game.juego.*
 
 class Personaje {
 	var property position
+	var property ataque = 5
+	var property vida = 10
 	
 	method maxDistance()
 	
@@ -43,5 +45,13 @@ class Personaje {
 		}
 		return positions
 	}
+
+	method atacar(enemigo) {
+		enemigo.recibirDanio(ataque)
+	}
 	
+	method recibirDanio(unDanio) {
+		vida -= unDanio
+		if(vida <= 0) juego.eliminarPersonaje(self)
+	}
 }

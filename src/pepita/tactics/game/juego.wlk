@@ -19,6 +19,11 @@ object juego {
 		unidades.put(personaje.position(), personaje)
 		game.addVisual(personaje)
 	}
+	
+	method eliminarPersonaje(personaje) {
+		unidades.remove(personaje.position())
+		game.removeVisual(personaje)
+	}
 
 	method pintarPosiciones(posiciones) {
 		self.despintarPosiciones()

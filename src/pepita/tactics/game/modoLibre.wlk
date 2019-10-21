@@ -1,8 +1,8 @@
 import pepita.tactics.model.selector.*
 import pepita.tactics.model.hero.*
 import pepita.tactics.game.juego.*
-import pepita.tactics.game.modoMovimiento.*
-import pepita.tactics.game.modoAtaque.*
+import pepita.tactics.game.ModoMovimiento.*
+import pepita.tactics.game.ModoAtaque.*
 
 
 object modoLibre {
@@ -16,8 +16,8 @@ object modoLibre {
 
 	method accionSecundaria() {
 		selector.conUnidadSeleccionada { unidad => 
-			juego.pintarPosiciones(hero.posicionesALasQuePuedoAtacar())
-			juego.modo(modoAtaque)
+			juego.pintarPosiciones(unidad.posicionesALasQuePuedoAtacar())
+			juego.modo( new modoAtaque(personaje=unidad))
 		}
 	}
 

@@ -1,6 +1,6 @@
 import wollok.game.*
 import pepita.tactics.game.juego.*
-import pepita.tactics.game.modoMovimiento.*
+import pepita.tactics.game.ModoMovimiento.*
 import pepita.tactics.game.modoLibre.*
 
 
