@@ -2,6 +2,7 @@ import wollok.game.*
 import pepita.tactics.model.hero.*
 import pepita.tactics.game.juego.*
 import pepita.tactics.model.selector.*
+import pepita.tactics.model.Enemy.*
 
 
 object config {
@@ -20,6 +21,7 @@ object config {
 
 	method addCharacters() {
 		game.addVisual(hero)
+		game.addVisual(new Enemy(position=game.center().right(3)))
 	}
 	
 	method addSelector() {
@@ -37,6 +39,7 @@ object config {
 			else
 			selector.seleccionarPosicion()
 		}
+		keyboard.x().onPressDo { hero.quieroAtacar() }
 	}
 
 }
