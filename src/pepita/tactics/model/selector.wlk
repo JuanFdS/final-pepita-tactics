@@ -1,29 +1,20 @@
 import wollok.game.*
+import pepita.tactics.game.juego.*
+import pepita.tactics.game.modoMovimiento.*
+import pepita.tactics.game.modoLibre.*
+
 
 object selector {
 
 	var property position = game.center()
-	var property personajeSeleccionado
 
 	method image() = "tileSeleccionada.png"
-
-	method seleccionarPersonaje(personaje) {
-		personaje.meQuieroMover()
-		personajeSeleccionado = personaje
-	}
-
-	method seleccionarPosicion() {
-		if (personajeSeleccionado != null && self.esPosicionAlcanzable()) {
-			personajeSeleccionado.position(position)
-			personajeSeleccionado.finalizarMovimiento()
-			personajeSeleccionado = null
+	
+	method conUnidadSeleccionada(logica) {
+		if(juego.unidades().containsKey(position)) {
+			const unidad = juego.unidades().get(position)
+			logica.apply(unidad)
 		}
 	}
-	
-	method esPosicionAlcanzable() {
-		const posicionesDisponibles = personajeSeleccionado.posicionesALasQueMePuedoMover()
-		return posicionesDisponibles.contains(position)		
-	}
-
 }
 

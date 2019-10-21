@@ -3,6 +3,7 @@ import pepita.tactics.model.hero.*
 import pepita.tactics.game.juego.*
 import pepita.tactics.model.selector.*
 import pepita.tactics.model.Enemy.*
+import pepita.tactics.game.modoLibre.*
 
 
 object config {
@@ -20,8 +21,9 @@ object config {
 	}
 
 	method addCharacters() {
-		game.addVisual(hero)
-		game.addVisual(new Enemy(position=game.center().right(3)))
+		hero.position(game.center())
+		juego.agregarPersonaje(hero)
+		juego.agregarPersonaje(new Enemy(position=game.center().right(3)))
 	}
 	
 	method addSelector() {
@@ -34,12 +36,8 @@ object config {
 		keyboard.up().onPressDo{ selector.position(selector.position().up(1))}
 		keyboard.left().onPressDo{ selector.position(selector.position().left(1))}
 		keyboard.right().onPressDo{ selector.position(selector.position().right(1))}
-		keyboard.z().onPressDo{ if(selector.position() == hero.position()) 
-			selector.seleccionarPersonaje(hero)
-			else
-			selector.seleccionarPosicion()
-		}
-		keyboard.x().onPressDo { hero.quieroAtacar() }
+		keyboard.z().onPressDo{ juego.accionPrincipal() }
+		keyboard.x().onPressDo { juego.accionSecundaria() }
 	}
 
 }
