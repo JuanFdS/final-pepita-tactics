@@ -1,5 +1,4 @@
 import pepita.tactics.model.selector.*
-import pepita.tactics.model.hero.*
 import pepita.tactics.game.juego.*
 import pepita.tactics.game.ModoMovimiento.*
 import pepita.tactics.game.ModoAtaque.*

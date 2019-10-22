@@ -2,7 +2,7 @@ import pepita.tactics.game.juego.*
 import pepita.tactics.game.modoLibre.*
 import pepita.tactics.model.Personaje.*
 
-object hero inherits Personaje {
+class Heroe inherits Personaje {
 
 	var property maxDistance = 3
 
