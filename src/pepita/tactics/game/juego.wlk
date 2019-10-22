@@ -5,8 +5,16 @@ import pepita.tactics.game.modoLibre.*
 
 object juego {
 	var property tiles = []
-	var property modo = modoLibre
+	var modo = modoLibre
 	var property unidades = new Dictionary()
+	
+	method posicionEstaDesocupada(posicion) = !unidades.containsKey(posicion)
+	
+	method cambiarModo(nuevoModo) {
+		modo.finalizarModo()
+		modo = nuevoModo
+		modo.inicializarModo()
+	}
 
 	method mover(personaje, posicion) {
 		unidades.remove(personaje.position())

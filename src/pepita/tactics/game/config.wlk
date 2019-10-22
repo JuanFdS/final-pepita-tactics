@@ -21,6 +21,7 @@ object config {
 	}
 
 	method addCharacters() {
+		juego.agregarPersonaje(new Heroe(position=game.center().left(3)))
 		juego.agregarPersonaje(new Heroe(position=game.center()))
 		juego.agregarPersonaje(new Enemy(position=game.center().right(3)))
 	}

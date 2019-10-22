@@ -5,6 +5,14 @@ import pepita.tactics.game.modoLibre.*
 
 class modoAtaque {
 	const personaje
+	
+	method inicializarModo() {
+		juego.pintarPosiciones(personaje.posicionesALasQuePuedoAtacar())
+	}
+
+	method finalizarModo() {
+		juego.despintarPosiciones()
+	}
 
 	method accionPrincipal() {
 		if(self.esPosicionAlcanzable()) {
@@ -12,8 +20,7 @@ class modoAtaque {
 				personaje.atacar(unidad)
 			}
 		}		
-		juego.despintarPosiciones()
-		juego.modo(modoLibre)
+		juego.cambiarModo(modoLibre)
 	}
 	
 	method accionSecundaria() {}

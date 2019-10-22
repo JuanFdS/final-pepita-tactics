@@ -5,18 +5,20 @@ import pepita.tactics.game.ModoAtaque.*
 
 
 object modoLibre {
+	
+	method finalizarModo() {}
+	
+	method inicializarModo() {}
 
 	method accionPrincipal() {
 		selector.conUnidadSeleccionada { unidad => 
-			juego.pintarPosiciones(unidad.posicionesALasQueMePuedoMover())
-			juego.modo(new ModoMovimiento(personaje=unidad))
+			juego.cambiarModo(new ModoMovimiento(personaje=unidad))
 		}
 	}
 
 	method accionSecundaria() {
 		selector.conUnidadSeleccionada { unidad => 
-			juego.pintarPosiciones(unidad.posicionesALasQuePuedoAtacar())
-			juego.modo( new modoAtaque(personaje=unidad))
+			juego.cambiarModo( new modoAtaque(personaje=unidad))
 		}
 	}
 

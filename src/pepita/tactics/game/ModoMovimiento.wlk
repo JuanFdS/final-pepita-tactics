@@ -5,22 +5,27 @@ import pepita.tactics.game.modoLibre.*
 
 class ModoMovimiento {
 	const personaje
+	
+	method inicializarModo() {
+		juego.pintarPosiciones(self.posicionesAlcanzables())
+	}
+
+	method finalizarModo() {
+		juego.despintarPosiciones()
+	}
 
 	method accionPrincipal() {
-		if(self.esPosicionAlcanzable()) {
-			juego.mover(personaje, selector.position())
+		if(self.posicionesAlcanzables().contains(self.posicionObjetivo())) {
+			juego.mover(personaje, self.posicionObjetivo())
 		}
-		juego.despintarPosiciones()
-		juego.modo(modoLibre)
+		juego.cambiarModo(modoLibre)
 	}
 
 	method accionSecundaria() {}
 
+	method posicionesAlcanzables() = personaje.posicionesALasQueMePuedoMover().filter { posicion => juego.posicionEstaDesocupada(posicion) } 
 
-	method esPosicionAlcanzable() {
-		const posicionesDisponibles = personaje.posicionesALasQueMePuedoMover()
-		return posicionesDisponibles.contains(selector.position())
-	}
+	method posicionObjetivo() = selector.position()
 
 }
 
