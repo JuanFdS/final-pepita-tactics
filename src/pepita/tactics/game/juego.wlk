@@ -36,7 +36,6 @@ object juego {
 	}
 	
 	method eliminarPersonaje(personaje) {
-		console.println(barritasDeVidaDeUnidades.containsKey(personaje))
 		const barritaDeVida = barritasDeVidaDeUnidades.get(personaje)
 		unidades.remove(personaje.position())
 		barritasDeVidaDeUnidades.remove(personaje)
