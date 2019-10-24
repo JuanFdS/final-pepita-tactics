@@ -1,6 +1,6 @@
 import pepita.tactics.model.selector.*
 import pepita.tactics.game.juego.*
-import pepita.tactics.game.modoLibre.*
+import pepita.tactics.game.ModoLibre.*
 
 
 class ModoMovimiento {
@@ -18,7 +18,7 @@ class ModoMovimiento {
 		if(self.posicionesAlcanzables().contains(self.posicionObjetivo())) {
 			juego.mover(personaje, self.posicionObjetivo())
 		}
-		juego.cambiarModo(modoLibre)
+		juego.cambiarModo(new ModoLibre())
 	}
 
 	method accionSecundaria() {}

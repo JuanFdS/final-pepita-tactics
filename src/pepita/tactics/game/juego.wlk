@@ -1,12 +1,15 @@
 import wollok.game.*
 import pepita.tactics.model.TilePintada.*
-import pepita.tactics.game.modoLibre.*
+import pepita.tactics.game.ModoLibre.*
+import pepita.tactics.model.BarritaDeVida.*
 
 
 object juego {
 	var property tiles = []
-	var modo = modoLibre
+	var modo = new ModoLibre()
 	var property unidades = new Dictionary()
+	
+	const barritasDeVidaDeUnidades = new Dictionary()
 	
 	method posicionEstaDesocupada(posicion) = !unidades.containsKey(posicion)
 	
@@ -26,11 +29,19 @@ object juego {
 	method agregarPersonaje(personaje) {
 		unidades.put(personaje.position(), personaje)
 		game.addVisual(personaje)
+		
+		const barritaDeVida = new BarritaDeVida(personaje=personaje)
+		game.addVisual(barritaDeVida)
+		barritasDeVidaDeUnidades.put(personaje, barritaDeVida)
 	}
 	
 	method eliminarPersonaje(personaje) {
+		console.println(barritasDeVidaDeUnidades.containsKey(personaje))
+		const barritaDeVida = barritasDeVidaDeUnidades.get(personaje)
 		unidades.remove(personaje.position())
+		barritasDeVidaDeUnidades.remove(personaje)
 		game.removeVisual(personaje)
+		game.removeVisual(barritaDeVida)
 	}
 
 	method pintarPosiciones(posiciones) {

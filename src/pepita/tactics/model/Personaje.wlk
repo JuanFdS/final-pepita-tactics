@@ -2,8 +2,8 @@ import pepita.tactics.game.juego.*
 
 class Personaje {
 	var property position
-	var property ataque = 5
-	var property vida = 10
+	var property ataque = 100
+	var property vida = 100
 	
 	method maxDistance()
 	
@@ -51,7 +51,11 @@ class Personaje {
 	}
 	
 	method recibirDanio(unDanio) {
-		vida -= unDanio
-		if(vida <= 0) juego.eliminarPersonaje(self)
+		vida = (vida - unDanio).max(0)
+		if(self.derrotado()) juego.eliminarPersonaje(self)
 	}
+	
+	method derrotado() = vida == 0
+	
+	override method toString() = self.identity().toString()
 }

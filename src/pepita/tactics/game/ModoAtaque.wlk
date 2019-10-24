@@ -1,11 +1,11 @@
 import pepita.tactics.model.selector.*
 import pepita.tactics.game.juego.*
-import pepita.tactics.game.modoLibre.*
+import pepita.tactics.game.ModoLibre.*
 
+class ModoAtaque {
 
-class modoAtaque {
 	const personaje
-	
+
 	method inicializarModo() {
 		juego.pintarPosiciones(personaje.posicionesALasQuePuedoAtacar())
 	}
@@ -15,18 +15,19 @@ class modoAtaque {
 	}
 
 	method accionPrincipal() {
-		if(self.esPosicionAlcanzable()) {
-			selector.conUnidadSeleccionada {unidad =>
-				personaje.atacar(unidad)
-			}
-		}		
-		juego.cambiarModo(modoLibre)
+		if (self.esPosicionAlcanzable()) {
+			selector.conUnidadSeleccionada{ unidad => personaje.atacar(unidad)}
+		}
+		juego.cambiarModo(new ModoLibre())
 	}
-	
-	method accionSecundaria() {}
+
+	method accionSecundaria() {
+	}
 
 	method esPosicionAlcanzable() {
 		const posicionesDisponibles = personaje.posicionesALasQuePuedoAtacar()
 		return posicionesDisponibles.contains(selector.position())
 	}
+
 }
+

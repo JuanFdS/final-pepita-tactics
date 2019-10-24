@@ -2,8 +2,9 @@ import wollok.game.*
 import pepita.tactics.game.juego.*
 import pepita.tactics.model.selector.*
 import pepita.tactics.model.Enemy.*
-import pepita.tactics.game.modoLibre.*
+import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.model.Heroe.*
+import pepita.tactics.game.TextDisplay.*
 
 
 object config {
@@ -21,8 +22,10 @@ object config {
 	}
 
 	method addCharacters() {
-		juego.agregarPersonaje(new Heroe(position=game.center().left(3)))
 		juego.agregarPersonaje(new Heroe(position=game.center()))
+		
+		juego.agregarPersonaje(new Heroe(position=game.center().left(3)))
+		
 		juego.agregarPersonaje(new Enemy(position=game.center().right(3)))
 	}
 	

@@ -1,5 +1,3 @@
-import pepita.tactics.game.juego.*
-import pepita.tactics.game.modoLibre.*
 import pepita.tactics.model.Personaje.*
 
 class Heroe inherits Personaje {
