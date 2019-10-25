@@ -10,6 +10,7 @@ class MenuItem {
 		menuText.inicializar()
 	})
 	
+	const accionPrincipal
 	const text
 	var property position = null
 	var box = null
@@ -27,6 +28,10 @@ class MenuItem {
 	method remove() {
 		box.remove()
 		menuText.remove()
+	}
+	
+	method accionPrincipal() {
+		accionPrincipal.apply()
 	}
 }
 

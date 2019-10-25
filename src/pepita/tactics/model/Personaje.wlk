@@ -2,7 +2,7 @@ import pepita.tactics.game.juego.*
 
 class Personaje {
 	var property position
-	var property ataque = 100
+	var property ataque = 30
 	var property vida = 100
 	
 	method maxDistance()

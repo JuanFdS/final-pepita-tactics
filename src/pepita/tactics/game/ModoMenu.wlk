@@ -18,6 +18,7 @@ class ModoMenu inherits Modo {
 	}
 
 	override method accionPrincipal() {
+		menu.accionPrincipal()
 	}
 
 	override method accionSecundaria() {

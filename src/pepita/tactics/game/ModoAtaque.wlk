@@ -27,7 +27,7 @@ class ModoAtaque inherits Modo {
 		return posicionesDisponibles.contains(selector.position())
 	}
 	
-		override method arriba() {
+	override method arriba() {
 		selector.arriba()
 	}
 	

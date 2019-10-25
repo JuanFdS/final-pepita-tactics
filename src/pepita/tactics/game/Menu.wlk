@@ -41,6 +41,10 @@ class Menu {
 	method opcionAnterior() {
 		selectorMenu.arriba()
 	}
+	
+	method accionPrincipal() {
+		selectorMenu.itemSeleccionado(items).accionPrincipal()
+	}
 
 }
 

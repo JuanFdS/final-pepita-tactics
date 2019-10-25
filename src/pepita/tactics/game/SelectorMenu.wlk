@@ -6,6 +6,8 @@ class SelectorMenu {
 	var property init = new Initialization(init={ self.reset() })
 	var yRelativo = 0
 	
+	method itemSeleccionado(items) = items.get(items.size() - 1 - yRelativo) //TODO: uff emprolijar esta mierda
+	
 	method inicializar() { self.reset() }
 	
 	method x() = menu.position().x()
