@@ -20,11 +20,11 @@ object juego {
 	])
 	
 	const property menuDeHeroe = new Menu(items = [
-		new MenuItem(text="Atacar", accionPrincipal={
-			selector.conUnidadSeleccionada({ unidad => self.cambiarModo(new ModoAtaque(personaje=unidad)) })
-		}),
 		new MenuItem(text="Moverse",accionPrincipal= {
 			selector.conUnidadSeleccionada({ unidad => self.cambiarModo(new ModoMovimiento(personaje=unidad)) })
+		}),
+		new MenuItem(text="Atacar", accionPrincipal={
+			selector.conUnidadSeleccionada({ unidad => self.cambiarModo(new ModoAtaque(personaje=unidad)) })
 		})])
 	
 	const barritasDeVidaDeUnidades = new Dictionary()
@@ -32,6 +32,7 @@ object juego {
 	method inicializar() {
 		menuDePausa.inicializar()
 		menuDeHeroe.inicializar()
+		menuDeAtaque.inicializar()
 	}
 	
 	method posicionEstaDesocupada(posicion) = !unidades.containsKey(posicion)

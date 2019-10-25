@@ -45,6 +45,15 @@ class Personaje {
 		}
 		return positions
 	}
+	
+	method ataqueFuerte(enemigo) {
+		self.atacar(enemigo)
+		self.atacar(enemigo)
+	}
+	
+	method ataqueDebil(enemigo) {
+		self.atacar(enemigo)
+	}
 
 	method atacar(enemigo) {
 		enemigo.recibirDanio(ataque)
