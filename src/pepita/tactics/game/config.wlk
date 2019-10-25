@@ -5,7 +5,6 @@ import pepita.tactics.model.Enemy.*
 import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.model.Heroe.*
 import pepita.tactics.game.TextDisplay.*
-import pepita.tactics.model.menu.*
 
 
 object config {

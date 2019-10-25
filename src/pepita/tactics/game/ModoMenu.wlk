@@ -1,22 +1,20 @@
 import wollok.game.*
-import pepita.tactics.model.menu.*
 import pepita.tactics.game.juego.*
 import pepita.tactics.game.Modo.*
-import pepita.tactics.model.SelectorMenu.*
+import pepita.tactics.game.Menu.*
+import pepita.tactics.game.MenuItem.*
 
 
 class ModoMenu inherits Modo {
+	const menu = new Menu(items=[new MenuItem(), new MenuItem(), new MenuItem()])
 	const modoAnterior
-	const selectorMenu = new SelectorMenu()
 
 	override method finalizarModo() {
-		game.removeVisual(menu)
-		game.removeVisual(selectorMenu)
+		menu.remove()
 	}
 	
 	override method inicializarModo() {
-		game.addVisual(menu)
-		game.addVisual(selectorMenu)
+		menu.draw()
 	}
 
 	override method accionPrincipal() {
@@ -31,11 +29,11 @@ class ModoMenu inherits Modo {
 	}
 	
 	override method arriba() {
-		selectorMenu.arriba()
+		menu.opcionAnterior()
 	}
 	
 	override method abajo() {
-		selectorMenu.abajo()
+		menu.opcionSiguiente()
 	}
 	
 }

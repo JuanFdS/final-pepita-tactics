@@ -1,13 +1,15 @@
-import pepita.tactics.model.menu.*
 import wollok.game.*
 
 
 class SelectorMenu {
-	const x = menu.position().x()
-	const yInicial = menu.position().y()
+	var property menu
 	var property yRelativo = 0
+	
+	method x() = menu.position().x()
+	
+	method yInicial() = menu.position().y()
 
-	method position() = game.at(x, yInicial + yRelativo)
+	method position() = game.at(self.x(), self.yInicial() + yRelativo)
 
 	method image() = "selectorMenu.png"
 
