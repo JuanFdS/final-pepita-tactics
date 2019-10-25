@@ -38,7 +38,7 @@ class LettersBlockDisplay {
 		const bottomCenterVisual = bottomCenter + "-bottomCenter"
 		return [ topLeftVisual, topCenterVisual, topRightVisual, bottomLeftVisual, bottomCenterVisual, bottomRightVisual ].
 			filter{ x => !x.contains(" ") }.
-			map { x => new Image(path = "font/" + x + ".png") }
+			map { x => new Image(path = "font8bits/" + x + ".png") }
 	}
 
 	method draw() {
