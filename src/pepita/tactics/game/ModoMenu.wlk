@@ -6,7 +6,7 @@ import pepita.tactics.game.MenuItem.*
 
 
 class ModoMenu inherits Modo {
-	const menu = new Menu(items=[new MenuItem(), new MenuItem(), new MenuItem()])
+	const menu = juego.menuDePausa()
 	const modoAnterior
 
 	override method finalizarModo() {

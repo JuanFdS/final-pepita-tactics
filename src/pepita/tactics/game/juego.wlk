@@ -2,6 +2,8 @@ import wollok.game.*
 import pepita.tactics.model.TilePintada.*
 import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.model.BarritaDeVida.*
+import pepita.tactics.game.Menu.*
+import pepita.tactics.game.MenuItem.*
 
 
 object juego {
@@ -9,7 +11,13 @@ object juego {
 	var modo = new ModoLibre()
 	var property unidades = new Dictionary()
 	
+	const property menuDePausa = new Menu(items=[new MenuItem(text="asd"), new MenuItem(text="wosd"), new MenuItem(text="lal")])
+	
 	const barritasDeVidaDeUnidades = new Dictionary()
+	
+	method inicializar() {
+		menuDePausa.inicializar()
+	}
 	
 	method posicionEstaDesocupada(posicion) = !unidades.containsKey(posicion)
 	

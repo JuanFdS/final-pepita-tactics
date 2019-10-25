@@ -14,6 +14,7 @@ object config {
 	method height() = 20
 
 	method configureGame() {
+		juego.inicializar()
 		game.width(self.width())
 		game.height(self.height())
 		self.addCharacters()

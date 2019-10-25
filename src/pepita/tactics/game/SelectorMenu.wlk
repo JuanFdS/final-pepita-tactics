@@ -1,9 +1,12 @@
 import wollok.game.*
-
+import pepita.tactics.game.Initialization.*
 
 class SelectorMenu {
 	var property menu
-	var property yRelativo = 0
+	var property init = new Initialization(init={ self.reset() })
+	var yRelativo = 0
+	
+	method inicializar() { self.reset() }
 	
 	method x() = menu.position().x()
 	
@@ -23,5 +26,9 @@ class SelectorMenu {
 			nuevoYRelativo = menu.cantidadDeOpciones() + nuevoYRelativo
 		} 
 		yRelativo = nuevoYRelativo % menu.cantidadDeOpciones()
+	}
+	
+	method reset() {
+		yRelativo = menu.cantidadDeOpciones() - 1
 	}
 }
