@@ -61,4 +61,24 @@ object juego {
 	method accionSecundaria() {
 		modo.accionSecundaria()
 	}
+	
+	method start() {
+		modo.start()
+	}
+	
+	method abajo() {
+		modo.abajo()
+	}
+	
+	method derecha() {
+		modo.derecha()
+	}
+	
+	method izquierda() {
+		modo.izquierda()
+	}
+	
+	method arriba() {
+		modo.arriba()
+	}
 }
