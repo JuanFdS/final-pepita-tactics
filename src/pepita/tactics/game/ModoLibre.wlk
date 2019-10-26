@@ -16,6 +16,8 @@ class ModoLibre inherits Modo {
 	}
 
 	override method accionSecundaria() {}
+	
+	override method personajeActivo() = false
 
 	override method arriba() {
 		selector.arriba()

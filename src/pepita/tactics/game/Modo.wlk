@@ -15,6 +15,8 @@ class Modo {
 		juego.cambiarModo(new ModoLibre())
 	}
 	
+	method personajeActivo() = true
+	
 	method start() {
 		juego.cambiarModo(new ModoMenu(modoAnterior=self))
 	}
