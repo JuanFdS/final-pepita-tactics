@@ -4,8 +4,8 @@ import pepita.tactics.model.selector.*
 import pepita.tactics.model.Enemy.*
 import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.model.Heroe.*
+import pepita.tactics.game.clock.*
 import pepita.tactics.game.TextDisplay.*
-
 
 object config {
 
@@ -17,6 +17,7 @@ object config {
 		juego.inicializar()
 		game.width(self.width())
 		game.height(self.height())
+		self.addClock()
 		self.addCharacters()
 		self.addSelector()
 		self.addKeyMap()
@@ -33,6 +34,11 @@ object config {
 	method addSelector() {
 		game.addVisual(selector)
 	}
+	
+	method addClock() {
+		game.onTick(60, "Advance time", { clock.advanceTime(1)})
+	}
+	
 
 	method addKeyMap() {
 	

@@ -1,12 +1,14 @@
 import wollok.game.*
 import pepita.tactics.game.juego.*
+import pepita.tactics.game.ModoMovimiento.*
+import pepita.tactics.game.AnimatedSprite.*
 
 
 object selector {
 
 	var property position = game.center()
 
-	method image() = "tileSeleccionada.png"
+	method image() = if(juego.personajeActivo()) "selector-red.png" else "selector-yellow.png"
 	
 	method conUnidadSeleccionada(logica) {
 		if(juego.unidades().containsKey(position)) {

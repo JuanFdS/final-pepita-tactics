@@ -36,6 +36,7 @@ object juego {
 	}
 	
 	method posicionEstaDesocupada(posicion) = !unidades.containsKey(posicion)
+	method personajeActivo() = modo.personajeActivo()
 	
 	method cambiarModo(nuevoModo) {
 		modo.finalizarModo()
