@@ -7,7 +7,7 @@ import pepita.tactics.game.AnimatedSprite.*
 
 object selector {
 	
-	const sprite = new AnimatedSprite(name = { "tileSeleccionada-" }, quantityOfFrames = {7}, speedFactor = 0.3)
+	const sprite = new AnimatedSprite(name = { "selector-yellow" }, quantityOfFrames = {2}, speedFactor = 0.3)
 
 	var property image = "tileSeleccionada.png"
 	var property position = game.center()

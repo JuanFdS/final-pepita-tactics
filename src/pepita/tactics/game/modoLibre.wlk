@@ -21,7 +21,5 @@ object modoLibre {
 			juego.cambiarModo( new modoAtaque(personaje=unidad))
 		}
 	}
-
-
 }
 
