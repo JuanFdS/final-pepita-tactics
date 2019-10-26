@@ -2,10 +2,10 @@ import wollok.game.*
 import pepita.tactics.game.juego.*
 import pepita.tactics.model.selector.*
 import pepita.tactics.model.Enemy.*
-import pepita.tactics.game.modoLibre.*
+import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.model.Heroe.*
 import pepita.tactics.game.clock.*
-
+import pepita.tactics.game.TextDisplay.*
 
 object config {
 
@@ -14,6 +14,7 @@ object config {
 	method height() = 20
 
 	method configureGame() {
+		juego.inicializar()
 		game.width(self.width())
 		game.height(self.height())
 		self.addClock()
@@ -23,8 +24,10 @@ object config {
 	}
 
 	method addCharacters() {
-		juego.agregarPersonaje(new Heroe(position=game.center().left(3)))
 		juego.agregarPersonaje(new Heroe(position=game.center()))
+		
+		juego.agregarPersonaje(new Heroe(position=game.center().left(3)))
+		
 		juego.agregarPersonaje(new Enemy(position=game.center().right(3)))
 	}
 	
@@ -39,10 +42,11 @@ object config {
 
 	method addKeyMap() {
 	
-		keyboard.down().onPressDo{ selector.position(selector.position().down(1))}
-		keyboard.up().onPressDo{ selector.position(selector.position().up(1))}
-		keyboard.left().onPressDo{ selector.position(selector.position().left(1))}
-		keyboard.right().onPressDo{ selector.position(selector.position().right(1))}
+		keyboard.down().onPressDo{ juego.abajo() }
+		keyboard.up().onPressDo{ juego.arriba() }
+		keyboard.left().onPressDo{ juego.izquierda() }
+		keyboard.right().onPressDo{ juego.derecha() }
+		keyboard.enter().onPressDo { juego.start() }
 		keyboard.z().onPressDo{ juego.accionPrincipal() }
 		keyboard.x().onPressDo { juego.accionSecundaria() }
 	}
