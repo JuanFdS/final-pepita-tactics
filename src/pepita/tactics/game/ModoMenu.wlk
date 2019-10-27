@@ -3,10 +3,10 @@ import pepita.tactics.game.juego.*
 import pepita.tactics.game.Modo.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
-
+import pepita.tactics.game.menuItemDisplays.*
 
 class ModoMenu inherits Modo {
-	const menu = juego.menuDePausa()
+	const menu = new Menu(items = [new MenuItem(display=menuItemDisplays.cancelar(), accionPrincipal = { juego.cambiarModo(modoAnterior) })])
 	const modoAnterior
 
 	override method finalizarModo() {

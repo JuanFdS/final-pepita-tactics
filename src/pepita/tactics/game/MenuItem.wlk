@@ -38,7 +38,12 @@ class MenuItemDisplay {
 		self.position(aPosition)
 		self.inicializar()
 		box.draw()
-		text.draw()
+		textDisplay.draw()
+	}
+	
+	method remove() {
+		box.remove()
+		textDisplay.remove()
 	}
 }
 

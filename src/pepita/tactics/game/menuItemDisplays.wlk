@@ -9,9 +9,10 @@ object menuItemDisplays {
     const property ataqueDebil = new MenuItemDisplay(text="Ataque debil")
     const property moverse = new MenuItemDisplay(text="Moverse")
     const property atacar = new MenuItemDisplay(text="Atacar")
+	const property cancelar = new MenuItemDisplay(text="Cancelar")
 
     method inicializar() {
-        [asd, wosd, lal, ataqueFuerte, ataqueDebil, moverse, atacar].
+        [asd, wosd, lal, ataqueFuerte, ataqueDebil, moverse, atacar, cancelar].
             forEach { display => display.inicializar() }
     }
 }

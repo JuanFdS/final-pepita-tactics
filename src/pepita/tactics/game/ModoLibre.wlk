@@ -6,12 +6,22 @@ import pepita.tactics.game.Modo.*
 import pepita.tactics.game.ModoMenu.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
+import pepita.tactics.game.menuItemDisplays.*
 
 class ModoLibre inherits Modo {
 
 	override method accionPrincipal() {
 		selector.conUnidadSeleccionada{ unidad =>
-			juego.cambiarModo(new ModoMenu(modoAnterior = self, menu = juego.menuDeHeroe()))
+			const menuDeHeroe = new Menu(items = [
+				new MenuItem(display = menuItemDisplays.moverse(),
+					    	 accionPrincipal= { juego.cambiarModo(new ModoMovimiento(personaje=unidad)) }),
+				new MenuItem(display = menuItemDisplays.atacar(),
+							 accionPrincipal= { juego.cambiarModo(new ModoAtaque(personaje=unidad)) }),
+				new MenuItem(display = menuItemDisplays.cancelar(),
+							 accionPrincipal= { juego.cambiarModo(new ModoLibre()) })
+				])
+
+			juego.cambiarModo(new ModoMenu(modoAnterior = self, menu = menuDeHeroe))
 		}
 	}
 

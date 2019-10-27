@@ -15,19 +15,6 @@ object juego {
 	var modo = new ModoLibre()
 	var property unidades = new Dictionary()
 	
-	const property menuDePausa = new Menu(items=[new MenuItem(display=menuItemDisplays.asd(), accionPrincipal={console.println("asd")}),
-												 new MenuItem(display=menuItemDisplays.wosd(),accionPrincipal={console.println("wosd")}),
-												 new MenuItem(display=menuItemDisplays.lal(),accionPrincipal={console.println("lal")})
-	])
-	
-	const property menuDeHeroe = new Menu(items = [
-		new MenuItem(display=menuItemDisplays.moverse(),accionPrincipal= {
-			selector.conUnidadSeleccionada({ unidad => self.cambiarModo(new ModoMovimiento(personaje=unidad)) })
-		}),
-		new MenuItem(display=menuItemDisplays.atacar(), accionPrincipal={
-			selector.conUnidadSeleccionada({ unidad => self.cambiarModo(new ModoAtaque(personaje=unidad)) })
-		})])
-	
 	const barritasDeVidaDeUnidades = new Dictionary()
 	
 	method inicializar() {

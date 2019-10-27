@@ -4,13 +4,11 @@ import pepita.tactics.game.SelectorMenu.*
 import pepita.tactics.game.Initialization.*
 
 class Menu {
-
+	const items
 	var property init = new Initialization(init = {
 		selectorMenu.menu(self)
 		selectorMenu.inicializar()
-		items.forEach{ item => item.inicializar()}
 	}, onRefresh = { selectorMenu.reset() })
-	const items
 	const selectorMenu = new SelectorMenu()
 
 	method position() = selector.position().right(1)
