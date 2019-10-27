@@ -5,6 +5,7 @@ import pepita.tactics.game.Modo.*
 import pepita.tactics.game.ModoMenu.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
+import pepita.tactics.game.menuItemDisplays.*
 
 class ModoAtaque inherits Modo {
 
@@ -66,8 +67,8 @@ object menuDeAtaque {
 	var property modoAtaque = null
 
 	const property menu = new Menu(items = [
-		new MenuItem(text="Ataque fuerte", accionPrincipal={ modoAtaque.ataqueFuerte() }),
-		new MenuItem(text="Ataque debil",accionPrincipal= { modoAtaque.ataqueDebil() })])
+		new MenuItem(display=menuItemDisplays.ataqueFuerte(), accionPrincipal={ modoAtaque.ataqueFuerte() }),
+		new MenuItem(display=menuItemDisplays.ataqueDebil(),accionPrincipal= { modoAtaque.ataqueDebil() })])
 		
 	method inicializar() {
 		menu.inicializar()

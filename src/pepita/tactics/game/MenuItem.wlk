@@ -4,30 +4,15 @@ import pepita.tactics.game.Initialization.*
 
 
 class MenuItem {
-	var property init = new Initialization(init={
-		box = new MenuItemBox(menuItem = self)
-		menuText = new MenuItemText(text=text, menuItem=self)
-		menuText.inicializar()
-	})
-	
+	const display
 	const accionPrincipal
-	const text
-	var property position = null
-	var box = null
-	var menuText = null
 	
-	method inicializar() { init.run(self) }
-	
-	method drawIn(aPosition) {
-		position = aPosition
-		self.inicializar()
-		box.draw()
-		menuText.draw()
+	method drawIn(position) {
+		display.drawIn(position)
 	}
 	
 	method remove() {
-		box.remove()
-		menuText.remove()
+		display.remove()
 	}
 	
 	method accionPrincipal() {
@@ -35,12 +20,36 @@ class MenuItem {
 	}
 }
 
+class MenuItemDisplay {
+	const text
+	var box = null
+	var textDisplay = null
+	var property init = new Initialization(init={
+		box = new MenuItemBox(parent=self)
+		textDisplay = new MenuItemText(text=text, parent=self)
+	})
+	var property position = null
+
+	method inicializar() {
+		init.run(self)
+	}
+
+	method drawIn(aPosition) {
+		self.position(aPosition)
+		self.inicializar()
+		box.draw()
+		text.draw()
+	}
+}
+
 class MenuItemBox {
-	const menuItem
-	const property image = "menu.png"
-	
-	method position() = menuItem.position()
-	
+	const image = "menu.png"
+	const parent
+
+	method image() = image
+
+	method position() = parent.position()	
+
 	method draw() {
 		game.addVisual(self)
 	}
@@ -51,20 +60,19 @@ class MenuItemBox {
 }
 
 class MenuItemText {
-	const menuItem
 	const text
+	const parent
 	var property init = new Initialization(init={
 		textDisplay = new TextDisplay(text=text, caracteresDeAncho=20, renglones=1, parent=self)
 		textDisplay.inicializar()
 	})
-
 	var textDisplay = null
-	
+
 	method inicializar() {
 		init.run(self)
 	}	
 	
-	method position() = menuItem.position()
+	method position() = parent.position()
 	
 	method draw() {
 		self.inicializar()
