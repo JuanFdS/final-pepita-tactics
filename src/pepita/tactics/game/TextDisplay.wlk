@@ -55,6 +55,7 @@ class LettersBlockDisplay {
 class TextDisplay {
 	var property init = new Initialization(init={
 		visuals = self.visuals()
+		visuals.forEach { visual => visual.inicializar() }
 	})
 
 	const text

@@ -14,13 +14,13 @@ object config {
 	method height() = 20
 
 	method configureGame() {
-		juego.inicializar()
 		game.width(self.width())
 		game.height(self.height())
 		self.addClock()
 		self.addCharacters()
 		self.addSelector()
 		self.addKeyMap()
+		juego.inicializar()
 	}
 
 	method addCharacters() {

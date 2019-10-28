@@ -27,6 +27,7 @@ class MenuItemDisplay {
 	var property init = new Initialization(init={
 		box = new MenuItemBox(parent=self)
 		textDisplay = new MenuItemText(text=text, parent=self)
+		textDisplay.inicializar()
 	})
 	var property position = null
 
