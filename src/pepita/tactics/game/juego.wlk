@@ -11,6 +11,7 @@ import pepita.tactics.game.TemporaryVisual.*
 import pepita.tactics.model.selector.*
 import pepita.tactics.game.AnimatedSprite.*
 import pepita.tactics.game.OneTimeAnimation.*
+import pepita.tactics.game.turnometro.*
 
 
 object juego {
@@ -22,6 +23,7 @@ object juego {
 	
 	method inicializar() {
 		menuItemDisplays.inicializar()
+		turnometro.init(unidades.values())
 	}
 	
 	method posicionEstaDesocupada(posicion) = !unidades.containsKey(posicion)

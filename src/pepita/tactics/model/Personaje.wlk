@@ -4,6 +4,7 @@ class Personaje {
 	var property position
 	var property ataque = 30
 	var property vida = 100
+	var property velocidad = 5
 	
 	method maxDistance()
 	method esEquipoHeroe() = true
