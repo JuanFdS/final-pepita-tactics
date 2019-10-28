@@ -6,6 +6,7 @@ class Personaje {
 	var property vida = 100
 	
 	method maxDistance()
+	method esEquipoHeroe() = true
 	
 	method meQuieroMover() {
 		juego.pintarPosiciones(self.posicionesALasQueMePuedoMover())
