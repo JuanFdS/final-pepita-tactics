@@ -6,6 +6,7 @@ class Enemy inherits Personaje {
 	const sprite = new AnimatedSprite(name={"personajes/orc/"}, quantityOfFrames={4})
 
 	override method maxDistance() = 2
+	method esEquipoHeroe() = false
 
 	method image() = sprite.image()
 

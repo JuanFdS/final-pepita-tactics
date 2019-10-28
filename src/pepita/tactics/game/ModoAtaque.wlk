@@ -23,7 +23,11 @@ class ModoAtaque inherits Modo {
 	override method accionPrincipal() {
 		if (self.esPosicionAlcanzable()) {
 			selector.conUnidadSeleccionada { unidad => 
-				juego.cambiarModo(new ModoMenu(modoAnterior=self, menu=menuDeAtaque.menu()))
+				if(personaje.esEquipoHeroe() == unidad.esEquipoHeroe()) {
+					self.error('Un amigo es una luz, no se la ataca')
+				} else {
+					juego.cambiarModo(new ModoMenu(modoAnterior=self, menu=menuDeAtaque.menu()))	
+				}
 			}
 		} else {
 			juego.cambiarModo(new ModoLibre())	
