@@ -27,7 +27,6 @@ class ModoAtaque inherits Modo {
 				if(personaje.esEquipoHeroe() == unidad.esEquipoHeroe()) {
 					self.error('Un amigo es una luz, no se la ataca')
 				} else {
-					turnometro.avanzarTurno()
 					juego.cambiarModo(new ModoMenu(modoAnterior=self, menu=menuDeAtaque.menu()))	
 				}
 			}
@@ -43,11 +42,16 @@ class ModoAtaque inherits Modo {
 	
 	method ataqueFuerte() {
 		selector.conUnidadSeleccionada{ unidad => personaje.ataqueFuerte(unidad)}
-		juego.cambiarModo(new ModoLibre())
+		self.finalizarAtaque()
 	}
 	
 	method ataqueDebil() {
 		selector.conUnidadSeleccionada{ unidad => personaje.ataqueDebil(unidad)}
+		self.finalizarAtaque()
+	}
+
+	method finalizarAtaque() {
+		turnometro.avanzarTurno()
 		juego.cambiarModo(new ModoLibre())
 	}
 
