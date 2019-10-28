@@ -7,7 +7,10 @@ import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.ModoAtaque.*
 import pepita.tactics.game.ModoMovimiento.*
 import pepita.tactics.game.menuItemDisplays.*
+import pepita.tactics.game.TemporaryVisual.*
 import pepita.tactics.model.selector.*
+import pepita.tactics.game.AnimatedSprite.*
+import pepita.tactics.game.OneTimeAnimation.*
 
 
 object juego {
@@ -63,6 +66,12 @@ object juego {
 	method despintarPosiciones() {
 		tiles.forEach { tile => game.removeVisual(tile)}
 		tiles.clear()
+	}
+	
+	method ataqueFueRealizadoEn(position) {
+//		const animacionDeAtaque = new AnimatedSprite(name = { "habilidades/cosaRoja/FX" }, quantityOfFrames= { 15 })
+		const animacionDeAtaque = new AnimatedSprite(name = { "habilidades/explosionRosa/" }, quantityOfFrames= { 82 }, speedFactor = 3)
+		new OneTimeAnimation(animatedSprite=animacionDeAtaque).drawIn(position)
 	}
 
 	method accionPrincipal() {

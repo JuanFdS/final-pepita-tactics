@@ -47,6 +47,7 @@ class Personaje {
 	}
 	
 	method ataqueFuerte(enemigo) {
+		juego.ataqueFueRealizadoEn(enemigo.position())
 		self.atacar(enemigo)
 		self.atacar(enemigo)
 	}

@@ -23,8 +23,12 @@ class AnimatedSprite {
 	const timeSinceStarted = clock.timePassed()
 
 	method timePassedSinceStarted() = clock.timePassed() - timeSinceStarted
+	
+	method hasLoopedAtLeastOnce() = self.framesSinceStarted() >= quantityOfFrames.apply()
+	
+	method framesSinceStarted() = self.timePassedSinceStarted() * speedFactor
 
-	method frameNumber() = (self.timePassedSinceStarted() * speedFactor) % quantityOfFrames.apply() 
+	method frameNumber() = self.framesSinceStarted() % quantityOfFrames.apply() 
 
 	method image() {
 		if(imagenes.isEmpty()) self.inicializarImagenes()
@@ -35,8 +39,7 @@ class AnimatedSprite {
 		//Hackazo para que ande un poquito mas rapido la animacion, creo todos los strings al principio en vez de calcular el nombre en cada frame 
 		//Seguro se podría hacer más simple
 		const frames = quantityOfFrames.apply()
-		frames.times{ i =>
-			const frameNumber = numberFormatter.toStringPaddingLeadingZeros(i - 1, frames.digits())
+		(0..frames - 1).forEach{ frameNumber =>
 			const imageName = name.apply() + frameNumber + "." + imageExtension  
 			imagenes.add(imageName)
 		}
@@ -44,14 +47,4 @@ class AnimatedSprite {
 
 }
 
-object numberFormatter {
-	method toStringWithLeadingZeros(number, quantityOfZeros) {
-		var leadingZeros = []
-		quantityOfZeros.times { i => leadingZeros.add(0) }
-		return leadingZeros.join("") + number.toString()
-	}
-	
-	method toStringPaddingLeadingZeros(number, maxDigits) {
-		return self.toStringWithLeadingZeros(number, maxDigits - number.digits())
-	}
-}
+
