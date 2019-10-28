@@ -4,9 +4,10 @@ import pepita.tactics.game.Modo.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.menuItemDisplays.*
+import pepita.tactics.game.turnometro.*
 
 class ModoMenu inherits Modo {
-	const menu = new Menu(items = [new MenuItem(display=menuItemDisplays.cancelar(), accionPrincipal = { juego.cambiarModo(modoAnterior) })])
+	var property menu = new Menu(items = [new MenuItem(display=menuItemDisplays.cancelar(), accionPrincipal = { juego.cambiarModo(modoAnterior) })])
 	const modoAnterior
 
 	override method finalizarModo() {
@@ -14,6 +15,7 @@ class ModoMenu inherits Modo {
 	}
 	
 	override method inicializarModo() {
+		turnometro.posicionarSelector()
 		menu.draw()
 	}
 

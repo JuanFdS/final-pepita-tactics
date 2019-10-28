@@ -18,9 +18,9 @@ class ModoLibre inherits Modo {
 			}
 			const menuDeHeroe = new Menu(items = [
 				new MenuItem(display = menuItemDisplays.moverse(),
-					    	 accionPrincipal= { juego.cambiarModo(new ModoMovimiento(personaje=unidad)) }),
+					    	 accionPrincipal= { juego.cambiarModo(new ModoMovimiento(personaje=unidad, desdeDonde=unidad.position())) }),
 				new MenuItem(display = menuItemDisplays.atacar(),
-							 accionPrincipal= { juego.cambiarModo(new ModoAtaque(personaje=unidad)) }),
+							 accionPrincipal= { juego.cambiarModo(new ModoAtaque(modoAnterior=self, personaje=unidad)) }),
 				new MenuItem(display = menuItemDisplays.cancelar(),
 							 accionPrincipal= { juego.cambiarModo(new ModoLibre()) })
 				])

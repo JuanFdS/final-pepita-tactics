@@ -11,8 +11,10 @@ import pepita.tactics.game.turnometro.*
 
 class ModoMovimiento inherits Modo {
 	const personaje
+	const desdeDonde
 	
 	override method inicializarModo() {
+		juego.mover(personaje, desdeDonde)
 		juego.pintarPosiciones(self.posicionesAlcanzables())
 	}
 
@@ -22,15 +24,22 @@ class ModoMovimiento inherits Modo {
 
 	override method accionPrincipal() {
 		if(self.posicionesAlcanzables().contains(self.posicionObjetivo())) {
-			const menuTrasMoverse = new Menu(items=[
-				new MenuItem(display=menuItemDisplays.atacar(), accionPrincipal = { juego.cambiarModo(new ModoAtaque(personaje=personaje)) }),
-				new MenuItem(display=menuItemDisplays.pasar(), accionPrincipal = {
-					turnometro.avanzarTurno()
-					juego.cambiarModo(new ModoLibre()) })
-			])
-			
 			juego.mover(personaje, self.posicionObjetivo())
-			juego.cambiarModo(new ModoMenu(modoAnterior=new ModoLibre(), menu=menuTrasMoverse))
+			
+			const nuevoModoMenu = new ModoMenu(modoAnterior=self)
+
+			const terminarTurno = {
+				turnometro.avanzarTurno()
+				juego.cambiarModo(new ModoLibre())
+			}
+
+			const menuTrasMoverse = new Menu(items=[
+				new MenuItem(display=menuItemDisplays.atacar(), accionPrincipal = { juego.cambiarModo(new ModoAtaque(modoAnterior=nuevoModoMenu, personaje=personaje)) }),
+				new MenuItem(display=menuItemDisplays.cancelar(), accionPrincipal = { juego.cambiarModo(self) }),
+				new MenuItem(display=menuItemDisplays.pasar(), accionPrincipal = terminarTurno)])
+			nuevoModoMenu.menu(menuTrasMoverse)
+			
+			juego.cambiarModo(nuevoModoMenu)
 		} else {
 			juego.cambiarModo(new ModoLibre())	
 		}

@@ -11,6 +11,7 @@ import pepita.tactics.game.turnometro.*
 class ModoAtaque inherits Modo {
 
 	const personaje
+	const modoAnterior
 
 	override method inicializarModo() {
 		menuDeAtaque.modoAtaque(self)
@@ -30,10 +31,13 @@ class ModoAtaque inherits Modo {
 					juego.cambiarModo(new ModoMenu(modoAnterior=self, menu=menuDeAtaque.menu()))	
 				}
 			}
-		} else {
-			juego.cambiarModo(new ModoLibre())	
 		}
 	}
+
+	override method accionSecundaria() {
+		juego.cambiarModo(modoAnterior)
+	}
+	
 
 	method esPosicionAlcanzable() {
 		const posicionesDisponibles = personaje.posicionesALasQuePuedoAtacar()
