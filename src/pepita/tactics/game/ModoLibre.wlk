@@ -6,12 +6,16 @@ import pepita.tactics.game.Modo.*
 import pepita.tactics.game.ModoMenu.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
+import pepita.tactics.game.turnometro.*
 import pepita.tactics.game.menuItemDisplays.*
 
 class ModoLibre inherits Modo {
 
 	override method accionPrincipal() {
 		selector.conUnidadSeleccionada{ unidad =>
+			if(turnometro.personajeActivo() != unidad) {
+				self.error('Todavia no es mi turno.')
+			}
 			const menuDeHeroe = new Menu(items = [
 				new MenuItem(display = menuItemDisplays.moverse(),
 					    	 accionPrincipal= { juego.cambiarModo(new ModoMovimiento(personaje=unidad)) }),

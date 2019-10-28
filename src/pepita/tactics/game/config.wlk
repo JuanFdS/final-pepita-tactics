@@ -21,6 +21,7 @@ object config {
 		self.addSelector()
 		self.addKeyMap()
 		juego.inicializar()
+		
 	}
 
 	method addCharacters() {

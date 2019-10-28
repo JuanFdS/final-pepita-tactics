@@ -6,6 +6,7 @@ import pepita.tactics.game.ModoMenu.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.menuItemDisplays.*
+import pepita.tactics.game.turnometro.*
 
 class ModoAtaque inherits Modo {
 
@@ -26,6 +27,7 @@ class ModoAtaque inherits Modo {
 				if(personaje.esEquipoHeroe() == unidad.esEquipoHeroe()) {
 					self.error('Un amigo es una luz, no se la ataca')
 				} else {
+					turnometro.avanzarTurno()
 					juego.cambiarModo(new ModoMenu(modoAnterior=self, menu=menuDeAtaque.menu()))	
 				}
 			}
