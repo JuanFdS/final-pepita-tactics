@@ -7,6 +7,7 @@ import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.menuItemDisplays.*
 import pepita.tactics.game.ModoAtaque.*
+import pepita.tactics.game.turnometro.*
 
 class ModoMovimiento inherits Modo {
 	const personaje
@@ -22,7 +23,11 @@ class ModoMovimiento inherits Modo {
 	override method accionPrincipal() {
 		if(self.posicionesAlcanzables().contains(self.posicionObjetivo())) {
 			const menuTrasMoverse = new Menu(items=[
-				new MenuItem(display=menuItemDisplays.atacar(), accionPrincipal = { juego.cambiarModo(new ModoAtaque(personaje=personaje)) })
+				new MenuItem(display=menuItemDisplays.atacar(), accionPrincipal = { juego.cambiarModo(new ModoAtaque(personaje=personaje)) }),
+				new MenuItem(display=menuItemDisplays.pasar(), accionPrincipal = {
+					turnometro.avanzarTurno()
+					selector.position(turnometro.personajeActivo().position())
+					juego.cambiarModo(new ModoLibre()) })
 			])
 			
 			juego.mover(personaje, self.posicionObjetivo())
