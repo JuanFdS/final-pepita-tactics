@@ -57,6 +57,7 @@ object juego {
 		barritasDeVidaDeUnidades.remove(personaje)
 		game.removeVisual(personaje)
 		game.removeVisual(barritaDeVida)
+		turnometro.remove(personaje)
 	}
 
 	method pintarPosiciones(posiciones) {
@@ -71,7 +72,6 @@ object juego {
 	}
 	
 	method ataqueFueRealizadoEn(position) {
-//		const animacionDeAtaque = new AnimatedSprite(name = { "habilidades/cosaRoja/FX" }, quantityOfFrames= { 15 })
 		const animacionDeAtaque = new AnimatedSprite(name = { "habilidades/explosionRosa/" }, quantityOfFrames= { 82 }, speedFactor = 3)
 		new OneTimeAnimation(animatedSprite=animacionDeAtaque).drawIn(position.left(1).down(1))
 	}

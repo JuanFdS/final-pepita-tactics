@@ -26,7 +26,6 @@ class ModoMovimiento inherits Modo {
 				new MenuItem(display=menuItemDisplays.atacar(), accionPrincipal = { juego.cambiarModo(new ModoAtaque(personaje=personaje)) }),
 				new MenuItem(display=menuItemDisplays.pasar(), accionPrincipal = {
 					turnometro.avanzarTurno()
-					selector.position(turnometro.personajeActivo().position())
 					juego.cambiarModo(new ModoLibre()) })
 			])
 			
