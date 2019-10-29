@@ -13,14 +13,6 @@ class Personaje {
 	
 	method maxDistance()
 	method esEquipoHeroe() = true
-	
-	method meQuieroMover() {
-		juego.pintarPosiciones(self.posicionesALasQueMePuedoMover())
-	}
-	
-	method quieroAtacar() {
-		juego.pintarPosiciones(self.posicionesALasQuePuedoAtacar())
-	}
 
 	method posicionesALasQueMePuedoMover() = self.posicionesPosibles(1 .. self.maxDistance())
 
