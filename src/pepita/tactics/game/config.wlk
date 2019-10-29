@@ -7,6 +7,12 @@ import pepita.tactics.model.Heroe.*
 import pepita.tactics.game.clock.*
 import pepita.tactics.game.TextDisplay.*
 
+object background {
+	const property position = game.origin()
+	
+	const property image = "background.png"
+}
+
 object config {
 
 	method width() = 20
@@ -16,6 +22,7 @@ object config {
 	method configureGame() {
 		game.width(self.width())
 		game.height(self.height())
+		game.addVisual(background)
 		self.addClock()
 		self.addCharacters()
 		self.addSelector()

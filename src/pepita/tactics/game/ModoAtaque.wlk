@@ -15,7 +15,7 @@ class ModoAtaque inherits Modo {
 
 	override method inicializarModo() {
 		menuDeAtaque.modoAtaque(self)
-		juego.pintarPosiciones(personaje.posicionesALasQuePuedoAtacar())
+		juego.pintarPosiciones(personaje.posicionesALasQuePuedoAtacar(), "tileAtacable.png")
 	}
 
 	override method finalizarModo() {

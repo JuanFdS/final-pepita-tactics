@@ -60,9 +60,9 @@ object juego {
 		turnometro.remove(personaje)
 	}
 
-	method pintarPosiciones(posiciones) {
+	method pintarPosiciones(posiciones, tileImagePath) {
 		self.despintarPosiciones()
-		tiles = posiciones.map { posicion => new TilePintada(posicion=posicion) }
+		tiles = posiciones.map { posicion => new TilePintada(position=posicion, image=tileImagePath) }
 		tiles.forEach { tile => game.addVisual(tile) }
 	}
 	

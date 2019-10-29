@@ -1,0 +1,4 @@
+#!/bin/bash
+set -euo pipefail
+
+convert -size 50x50 xc:"rgba(0, 0, 255, 0.4)" tileAlcanzable.png

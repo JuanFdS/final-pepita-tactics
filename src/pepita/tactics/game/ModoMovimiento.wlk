@@ -15,7 +15,7 @@ class ModoMovimiento inherits Modo {
 	
 	override method inicializarModo() {
 		juego.mover(personaje, desdeDonde)
-		juego.pintarPosiciones(self.posicionesAlcanzables())
+		juego.pintarPosiciones(self.posicionesAlcanzables(), "tileAlcanzable.png")
 	}
 
 	override method finalizarModo() {

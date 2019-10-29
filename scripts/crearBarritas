@@ -1,12 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-width=$(($n/2))
-height=7
-
 for n in {1..100}
 do
+width=$(($n/2))
+height=7
 echo "Creada barrita $n de 100"
-convert -size "$width"x$height -depth 8 -fill transparent -stroke gray -strokewidth 2 -draw "rectangle 0,0 $(($width-1)),$(($height-1))" xc:"rgb($((100-$n))%,$(($n))%,0)" $n.png
+convert -size "$width"x$height -depth 8 -fill transparent -stroke black -strokewidth 2 -draw "rectangle 0,0 $(($width-1)),$(($height-1))" xc:"rgb($((100-$n))%,$(($n))%,0)" $n.png
 convert $n.png -background transparent -gravity NorthWest -extent 50x50 $n.png
 done
