@@ -4,6 +4,7 @@ import pepita.tactics.model.selector.*
 import pepita.tactics.model.Enemy.*
 import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.model.Heroe.*
+import pepita.tactics.model.Habilidad.*
 import pepita.tactics.game.clock.*
 import pepita.tactics.game.TextDisplay.*
 
@@ -36,7 +37,7 @@ object config {
 		
 		juego.agregarPersonaje(new Heroe(position=game.center().left(3)))
 		
-		juego.agregarPersonaje(new Enemy(position=game.center().right(3)))
+		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(3)))
 	}
 	
 	method addSelector() {

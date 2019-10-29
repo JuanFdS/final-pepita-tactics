@@ -71,9 +71,8 @@ object juego {
 		tiles.clear()
 	}
 	
-	method ataqueFueRealizadoEn(position) {
-		const animacionDeAtaque = new AnimatedSprite(name = { "habilidades/explosionRosa/" }, quantityOfFrames= { 82 }, speedFactor = 3)
-		new OneTimeAnimation(animatedSprite=animacionDeAtaque).drawIn(position.left(1).down(1))
+	method ataqueFueRealizadoEn(position, habilidad) {
+		new OneTimeAnimation(animatedSprite=habilidad.animacion()).drawIn(position.left(1).down(1))
 	}
 
 	method accionPrincipal() {

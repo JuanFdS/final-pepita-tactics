@@ -14,7 +14,6 @@ class ModoAtaque inherits Modo {
 	const modoAnterior
 
 	override method inicializarModo() {
-		menuDeAtaque.modoAtaque(self)
 		juego.pintarPosiciones(personaje.posicionesALasQuePuedoAtacar(), "tileAtacable.png")
 	}
 
@@ -28,7 +27,13 @@ class ModoAtaque inherits Modo {
 				if(personaje.esEquipoHeroe() == unidad.esEquipoHeroe()) {
 					self.error('Un amigo es una luz, no se la ataca')
 				} else {
-					juego.cambiarModo(new ModoMenu(modoAnterior=self, menu=menuDeAtaque.menu(), position=unidad.position()))	
+					const menu = new Menu(items=personaje.habilidades().map { habilidad =>
+						new MenuItem(display=habilidad.menuItemDisplay(), accionPrincipal={
+							personaje.usarHabilidadEn(unidad, habilidad)
+							self.finalizarAtaque()
+						})
+					})
+					juego.cambiarModo(new ModoMenu(modoAnterior=self, menu=menu, position=unidad.position()))	
 				}
 			}
 		}
@@ -42,18 +47,6 @@ class ModoAtaque inherits Modo {
 	method esPosicionAlcanzable() {
 		const posicionesDisponibles = personaje.posicionesALasQuePuedoAtacar()
 		return posicionesDisponibles.contains(selector.position())
-	}
-	
-	method ataqueFuerte() {
-		selector.conUnidadSeleccionada{ unidad => 
-			personaje.ataqueFuerte(unidad)
-		}
-		self.finalizarAtaque()
-	}
-	
-	method ataqueDebil() {
-		selector.conUnidadSeleccionada{ unidad => personaje.ataqueDebil(unidad)}
-		self.finalizarAtaque()
 	}
 
 	method finalizarAtaque() {
@@ -79,14 +72,3 @@ class ModoAtaque inherits Modo {
 
 }
 
-object menuDeAtaque {
-	var property modoAtaque = null
-
-	const property menu = new Menu(items = [
-		new MenuItem(display=menuItemDisplays.ataqueFuerte(), accionPrincipal={ modoAtaque.ataqueFuerte() }),
-		new MenuItem(display=menuItemDisplays.ataqueDebil(),accionPrincipal= { modoAtaque.ataqueDebil() })])
-		
-	method inicializar() {
-		menu.inicializar()
-	}
-}

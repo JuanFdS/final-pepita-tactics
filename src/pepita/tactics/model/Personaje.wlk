@@ -1,6 +1,7 @@
 import pepita.tactics.game.juego.*
 import pepita.tactics.model.esperando.*
 import pepita.tactics.model.jugando.*
+import pepita.tactics.model.Habilidad.*
 
 class Personaje {
 	var property position
@@ -8,6 +9,7 @@ class Personaje {
 	var property vida = 100
 	var property velocidad = 5
 	var estado = esperando
+	var property habilidades = [explosion]
 	
 	method maxDistance()
 	method esEquipoHeroe() = true
@@ -51,10 +53,9 @@ class Personaje {
 		return positions
 	}
 	
-	method ataqueFuerte(enemigo) {
-		juego.ataqueFueRealizadoEn(enemigo.position())
-		self.atacar(enemigo)
-		self.atacar(enemigo)
+	method usarHabilidadEn(enemigo, habilidad) {
+		juego.ataqueFueRealizadoEn(enemigo.position(), habilidad)
+		habilidad.usarEn(enemigo)
 	}
 	
 	method terminoTuTurno() {
@@ -63,10 +64,6 @@ class Personaje {
 	
 	method teToca() {
 		estado = jugando
-	}
-	
-	method ataqueDebil(enemigo) {
-		self.atacar(enemigo)
 	}
 
 	method atacar(enemigo) {
