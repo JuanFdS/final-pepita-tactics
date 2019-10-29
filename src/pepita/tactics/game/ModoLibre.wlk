@@ -25,7 +25,7 @@ class ModoLibre inherits Modo {
 							 accionPrincipal= { juego.cambiarModo(new ModoLibre()) })
 				])
 
-			juego.cambiarModo(new ModoMenu(modoAnterior = self, menu = menuDeHeroe))
+			juego.cambiarModo(new ModoMenu(position=unidad.position(), modoAnterior = self, menu = menuDeHeroe))
 		}
 	}
 

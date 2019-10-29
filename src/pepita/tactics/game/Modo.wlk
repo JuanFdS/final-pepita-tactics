@@ -1,6 +1,7 @@
 import pepita.tactics.game.ModoMenu.*
 import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.game.juego.*
+import pepita.tactics.model.selector.*
 
 
 class Modo {
@@ -18,7 +19,7 @@ class Modo {
 	method personajeActivo() = true
 	
 	method start() {
-		juego.cambiarModo(new ModoMenu(modoAnterior=self))
+		juego.cambiarModo(new ModoMenu(modoAnterior=self, position=selector.position()))
 	}
 	
 	method arriba() {}

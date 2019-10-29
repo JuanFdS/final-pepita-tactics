@@ -26,7 +26,7 @@ class ModoMovimiento inherits Modo {
 		if(self.posicionesAlcanzables().contains(self.posicionObjetivo())) {
 			juego.mover(personaje, self.posicionObjetivo())
 			
-			const nuevoModoMenu = new ModoMenu(modoAnterior=self)
+			const nuevoModoMenu = new ModoMenu(modoAnterior=self, position=personaje.position())
 
 			const terminarTurno = {
 				turnometro.avanzarTurno()
