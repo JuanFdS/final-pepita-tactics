@@ -34,9 +34,9 @@ class ModoMovimiento inherits Modo {
 			
 			const modoMenuTrasMoverse = new ModoMenu(position=personaje.position(), modoAnterior=self)
 
-			const modoMenuDeHabilidades = new ModoMenu(position=personaje.position(), modoAnterior=self)
+			const modoMenuDeHabilidades = new ModoMenu(position=personaje.position(), modoAnterior=modoMenuTrasMoverse)
 			personaje.habilidades().forEach { habilidad =>
-				modoMenuDeHabilidades.agregarCambioDeModo(habilidad.menuItemDisplay(), { new ModoAtaque(modoAnterior=self, personaje=personaje, habilidad=habilidad) })
+				modoMenuDeHabilidades.agregarCambioDeModo(habilidad.menuItemDisplay(), { new ModoAtaque(modoAnterior=modoMenuDeHabilidades, personaje=personaje, habilidad=habilidad) })
 			}
 			
 			modoMenuTrasMoverse.agregarCambioDeModo(menuItemDisplays.atacar(), { modoMenuDeHabilidades })
