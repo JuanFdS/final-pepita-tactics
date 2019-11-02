@@ -15,7 +15,7 @@ class ModoAtaque inherits Modo {
 	const habilidad
 
 	override method inicializarModo() {
-		juego.pintarPosiciones(personaje.posicionesALasQuePuedoAtacar(), "tileAtacable.png")
+		juego.pintarPosiciones(self.posicionesAlcanzables(), "tileAtacable.png")
 	}
 
 	override method finalizarModo() {
@@ -39,11 +39,9 @@ class ModoAtaque inherits Modo {
 		juego.cambiarModo(modoAnterior)
 	}
 	
+	method posicionesAlcanzables() = habilidad.posicionesAlcanzablesPara(personaje)
 
-	method esPosicionAlcanzable() {
-		const posicionesDisponibles = personaje.posicionesALasQuePuedoAtacar()
-		return posicionesDisponibles.contains(selector.position())
-	}
+	method esPosicionAlcanzable() = self.posicionesAlcanzables().contains(selector.position())
 
 	method finalizarAtaque() {
 		turnometro.avanzarTurno()

@@ -2,6 +2,7 @@ import pepita.tactics.game.juego.*
 import pepita.tactics.model.esperando.*
 import pepita.tactics.model.jugando.*
 import pepita.tactics.model.Habilidad.*
+import pepita.tactics.model.calculadorDePosicionesAlcanzables.*
 
 class Personaje {
 	var property position
@@ -14,37 +15,10 @@ class Personaje {
 	method maxDistance()
 	method esEquipoHeroe() = true
 
-	method posicionesALasQueMePuedoMover() = self.posicionesPosibles(1 .. self.maxDistance())
+	method posicionesALasQueMePuedoMover() = calculadorDePosicionesAlcanzables.posicionesAlcanzables(position, (1 .. self.maxDistance()))
 
-	method posicionesALasQuePuedoAtacar() = self.posicionesPosibles(1 .. 1)
+	method posicionesALasQuePuedoAtacar() = calculadorDePosicionesAlcanzables.posicionesAlcanzables(position, 1 .. 1)
 
-	method posicionesPosibles(rangoDeDistancia) {
-		var positions = []
-		const maximaDistancia = rangoDeDistancia.end()
-		const top = position.up(maximaDistancia)
-		positions.add(top)
-		const bottom = position.down(maximaDistancia)
-		positions.add(bottom)
-		positions.add(position.right(maximaDistancia))
-		positions.add(position.left(maximaDistancia))
-		if(rangoDeDistancia.size() > 1) {
-			(rangoDeDistancia.start()..rangoDeDistancia.end()-1).forEach{ y =>
-				positions.add(top.down(y))
-				positions.add(bottom.up(y))
-				positions.add(position.right(y))
-				positions.add(position.left(y))
-	
-				(1 .. y).forEach{ x =>
-					positions.add(top.down(y).right(x))
-					positions.add(top.down(y).left(x))
-					positions.add(bottom.up(y).right(x))
-					positions.add(bottom.up(y).left(x))
-				}
-			}			
-		}
-		return positions
-	}
-	
 	method usarHabilidadEn(enemigo, habilidad) {
 		juego.ataqueFueRealizadoEn(enemigo.position(), habilidad)
 		habilidad.usarEn(enemigo)
