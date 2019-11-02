@@ -26,12 +26,12 @@ class ModoAtaque inherits Modo {
 	override method accionPrincipal() {
 		if (self.esPosicionAlcanzable()) {
 			selector.conUnidadSeleccionada { unidad => 
-				if(personaje.esEquipoHeroe() == unidad.esEquipoHeroe()) {
-					self.error('Un amigo es una luz, no se la ataca')
-				} else {
+//				if(personaje.esEquipoHeroe() == unidad.esEquipoHeroe()) {
+//					self.error('Un amigo es una luz, no se la ataca')
+//				} else {
 					personaje.usarHabilidadEn(unidad, habilidad)
 					self.finalizarAtaque()	
-				}
+//				}
 			}
 		}
 	}

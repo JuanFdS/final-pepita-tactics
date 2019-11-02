@@ -28,6 +28,10 @@ class ModoLibre inherits Modo {
 			modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.moverse(), { new ModoMovimiento(personaje=unidad, desdeDonde=unidad.position()) })
 			modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.atacar(), { modoMenuDeHabilidades })
 			modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.cancelar(), { new ModoLibre() })
+			modoMenuDeHeroe.agregarAccion(menuItemDisplays.pasar(), {
+				turnometro.avanzarTurno()
+				juego.cambiarModo(new ModoLibre())
+			})
 
 			juego.cambiarModo(modoMenuDeHeroe)
 		}

@@ -43,7 +43,7 @@ class Personaje {
 	
 	method derrotado() = vida == 0
 	
-	override method toString() = self.identity().toString()
+//	override method toString() = self.identity().toString()
 	
 	method image() = estado.image(self)
 	

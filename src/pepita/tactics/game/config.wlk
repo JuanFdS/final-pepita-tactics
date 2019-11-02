@@ -37,7 +37,7 @@ object config {
 		
 		juego.agregarPersonaje(new Heroe(position=game.center().left(3)))
 		
-		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(3)))
+//		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(3)))
 	}
 	
 	method addSelector() {
