@@ -1,10 +1,12 @@
 import pepita.tactics.model.selector.*
 import wollok.game.*
 import pepita.tactics.game.SelectorMenu.*
+import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.Initialization.*
+import pepita.tactics.game.juego.*
 
 class Menu {
-	const items
+	const items = []
 	var property init = new Initialization(init = {
 		selectorMenu.menu(self)
 		selectorMenu.inicializar()
@@ -25,6 +27,11 @@ class Menu {
 			pos = pos.up(1)
 		}
 		game.addVisual(selectorMenu)
+	}
+
+	method agregarAccion(display, accion) {
+		const nuevoItem = new MenuItem(display = display, accionPrincipal = accion)
+		items.add(nuevoItem)
 	}
 
 	method remove() {

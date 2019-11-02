@@ -12,6 +12,7 @@ class ModoAtaque inherits Modo {
 
 	const personaje
 	const modoAnterior
+	const habilidad
 
 	override method inicializarModo() {
 		juego.pintarPosiciones(personaje.posicionesALasQuePuedoAtacar(), "tileAtacable.png")
@@ -27,13 +28,8 @@ class ModoAtaque inherits Modo {
 				if(personaje.esEquipoHeroe() == unidad.esEquipoHeroe()) {
 					self.error('Un amigo es una luz, no se la ataca')
 				} else {
-					const menu = new Menu(items=personaje.habilidades().map { habilidad =>
-						new MenuItem(display=habilidad.menuItemDisplay(), accionPrincipal={
-							personaje.usarHabilidadEn(unidad, habilidad)
-							self.finalizarAtaque()
-						})
-					})
-					juego.cambiarModo(new ModoMenu(modoAnterior=self, menu=menu, position=unidad.position()))	
+					personaje.usarHabilidadEn(unidad, habilidad)
+					self.finalizarAtaque()	
 				}
 			}
 		}

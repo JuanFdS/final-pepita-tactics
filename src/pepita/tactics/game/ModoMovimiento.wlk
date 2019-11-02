@@ -3,6 +3,7 @@ import pepita.tactics.game.juego.*
 import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.game.Modo.*
 import pepita.tactics.game.ModoMenu.*
+import pepita.tactics.game.ModoAtaque.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.menuItemDisplays.*
@@ -25,21 +26,24 @@ class ModoMovimiento inherits Modo {
 	override method accionPrincipal() {
 		if(self.posicionesAlcanzables().contains(self.posicionObjetivo())) {
 			juego.mover(personaje, self.posicionObjetivo())
-			
-			const nuevoModoMenu = new ModoMenu(modoAnterior=self, position=personaje.position())
 
 			const terminarTurno = {
 				turnometro.avanzarTurno()
 				juego.cambiarModo(new ModoLibre())
 			}
-
-			const menuTrasMoverse = new Menu(items=[
-				new MenuItem(display=menuItemDisplays.atacar(), accionPrincipal = { juego.cambiarModo(new ModoAtaque(modoAnterior=nuevoModoMenu, personaje=personaje)) }),
-				new MenuItem(display=menuItemDisplays.cancelar(), accionPrincipal = { juego.cambiarModo(self) }),
-				new MenuItem(display=menuItemDisplays.pasar(), accionPrincipal = terminarTurno)])
-			nuevoModoMenu.menu(menuTrasMoverse)
 			
-			juego.cambiarModo(nuevoModoMenu)
+			const modoMenuTrasMoverse = new ModoMenu(position=personaje.position(), modoAnterior=self)
+
+			const modoMenuDeHabilidades = new ModoMenu(position=personaje.position(), modoAnterior=self)
+			personaje.habilidades().forEach { habilidad =>
+				modoMenuDeHabilidades.agregarCambioDeModo(habilidad.menuItemDisplay(), { new ModoAtaque(modoAnterior=self, personaje=personaje, habilidad=habilidad) })
+			}
+			
+			modoMenuTrasMoverse.agregarCambioDeModo(menuItemDisplays.atacar(), { modoMenuDeHabilidades })
+			modoMenuTrasMoverse.agregarCambioDeModo(menuItemDisplays.cancelar(), { self })
+			modoMenuTrasMoverse.agregarAccion(menuItemDisplays.pasar(), terminarTurno)
+
+			juego.cambiarModo(modoMenuTrasMoverse)
 		} else {
 			juego.cambiarModo(new ModoLibre())	
 		}

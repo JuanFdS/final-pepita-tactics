@@ -4,6 +4,7 @@ import pepita.tactics.game.ModoMovimiento.*
 import pepita.tactics.game.ModoAtaque.*
 import pepita.tactics.game.Modo.*
 import pepita.tactics.game.ModoMenu.*
+import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.turnometro.*
@@ -16,16 +17,19 @@ class ModoLibre inherits Modo {
 			if(turnometro.personajeActivo() != unidad) {
 				self.error('Todavia no es mi turno.')
 			}
-			const menuDeHeroe = new Menu(items = [
-				new MenuItem(display = menuItemDisplays.moverse(),
-					    	 accionPrincipal= { juego.cambiarModo(new ModoMovimiento(personaje=unidad, desdeDonde=unidad.position())) }),
-				new MenuItem(display = menuItemDisplays.atacar(),
-							 accionPrincipal= { juego.cambiarModo(new ModoAtaque(modoAnterior=self, personaje=unidad)) }),
-				new MenuItem(display = menuItemDisplays.cancelar(),
-							 accionPrincipal= { juego.cambiarModo(new ModoLibre()) })
-				])
+			const modoMenuDeHeroe = new ModoMenu(position = unidad.position(), modoAnterior=self)
 
-			juego.cambiarModo(new ModoMenu(position=unidad.position(), modoAnterior = self, menu = menuDeHeroe))
+			const modoMenuDeHabilidades = new ModoMenu(position = unidad.position(), modoAnterior=modoMenuDeHeroe)
+			unidad.habilidades().forEach { habilidad =>
+				const nuevoModoDeAtaque = new ModoAtaque(modoAnterior=modoMenuDeHabilidades, personaje=unidad, habilidad=habilidad)
+				modoMenuDeHabilidades.agregarCambioDeModo(habilidad.menuItemDisplay(), { nuevoModoDeAtaque })
+			}
+
+			modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.moverse(), { new ModoMovimiento(personaje=unidad, desdeDonde=unidad.position()) })
+			modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.atacar(), { modoMenuDeHabilidades })
+			modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.cancelar(), { new ModoLibre() })
+
+			juego.cambiarModo(modoMenuDeHeroe)
 		}
 	}
 
