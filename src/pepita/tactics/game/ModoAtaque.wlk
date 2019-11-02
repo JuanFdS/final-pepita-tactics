@@ -6,6 +6,7 @@ import pepita.tactics.game.ModoMenu.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.menuItemDisplays.*
+import pepita.tactics.game.ModoTransicion.*
 import pepita.tactics.game.turnometro.*
 
 class ModoAtaque inherits Modo {
@@ -44,8 +45,7 @@ class ModoAtaque inherits Modo {
 	method esPosicionAlcanzable() = self.posicionesAlcanzables().contains(selector.position())
 
 	method finalizarAtaque() {
-		turnometro.avanzarTurno()
-		juego.cambiarModo(new ModoLibre())
+		juego.cambiarModo(new ModoTransicion(transicion = { turnometro.avanzarTurno() }, siguiente = new ModoLibre()))
 	}
 
 	override method arriba() {

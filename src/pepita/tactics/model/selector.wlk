@@ -5,8 +5,9 @@ import pepita.tactics.game.juego.*
 object selector {
 
 	var property position = game.center()
+	var property invisible = false
 
-	method image() = if(juego.personajeActivo()) "selector-red.png" else "selector-yellow.png"
+	method image() = if(invisible) "empty.png" else (if(juego.personajeActivo()) "selector-red.png" else "selector-yellow.png")
 	
 	method conUnidadSeleccionada(logica) {
 		if(juego.unidades().containsKey(position)) {
