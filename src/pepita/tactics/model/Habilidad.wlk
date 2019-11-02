@@ -6,7 +6,7 @@ class Habilidad {
 	method menuItemDisplay()
 	method animacion()
 	method usarEn(unidad)
-	method posicionesAlcanzables()
+	method posicionesAlcanzablesPara(unidad)
 }
 
 object explosion inherits Habilidad {
