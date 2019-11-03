@@ -1,12 +1,31 @@
-class Promise {
-	var property result = new Pending()
+import wollok.game.*
+import pepita.tactics.juego.*
 
-	method start(block) {
-		result.start(self, block)
+object promise {
+	method pendiente(handlers) = new Promise(result = new Pending(handlers = handlers))
+	method resuelta(value) = new Promise(result = new Success(value = value))
+	method resultaTrasEjecutar(bloque) = self.resuelta(bloque.apply())
+	method esperarYDevolver(milisegundos, bloque) = self.pendiente({ onSuccess, onError => game.schedule(milisegundos, { onSuccess.apply(bloque.apply()) })})
+	method esperarYHacer(milisegundos, bloque) = self.esperarYDevolver(milisegundos, { bloque.apply(); return unit })
+}
+
+class Promise {
+	var property result
+	
+	method initialize() {
+		result.start(self)
 	}
 	
+	// when we want to produce effect
+	method forEach(block) = self.map({ value =>
+		block.apply(value)
+		return unit
+	})
+	
+	// when we want to change the value in the promise
 	method map(block) = result.map(self, block)
 
+	// when we want to chain another promise
 	method then(block) = result.then(self, block)
 	
 	method onError(block) = result.onError(self, block)
@@ -14,11 +33,11 @@ class Promise {
 
 class Pending {
 	var andThen = { x => x }
+	const handlers
 
-	method start(promise, block) {
-		block.apply({ value => self.resolvePromise(promise, value) },
-					{ error => self.failPromise(promise, error) }
-		)
+	method start(promise) {
+		handlers.apply({ value => self.resolvePromise(promise, value) },
+	   				   { error => self.failPromise(promise, error) })
 	}
 
 	method resolvePromise(promise, value) {
@@ -52,20 +71,20 @@ class Pending {
 
 class Success {
 	const value
-
-	method start(promise, block) {}
+	
+	method start(promise) {}
 
 	method then(promise, block) = block.apply(value)
 	
 	method onError(promise, block) = promise
 	
-	method map(promise, block) = new Promise(result = new Success(value = block.apply(value))) 
+	method map(promise, block) = new Promise(result = new Success(value = block.apply(value)))
 }
 
 class Failure {
 	const error
 	
-	method start(promise, block) {}
+	method start(promise) {}
 	
 	method then(promise, block) = promise
 	
@@ -74,3 +93,4 @@ class Failure {
 	method map(promise, block) = promise
 }
 
+object unit {}

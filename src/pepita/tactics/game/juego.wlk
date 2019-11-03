@@ -12,6 +12,8 @@ import pepita.tactics.model.selector.*
 import pepita.tactics.game.AnimatedSprite.*
 import pepita.tactics.game.OneTimeAnimation.*
 import pepita.tactics.game.turnometro.*
+import pepita.tactics.game.config.*
+import pepita.tactics.game.Promise.*
 
 
 object juego {
@@ -28,6 +30,11 @@ object juego {
 	
 	method posicionEstaDesocupada(posicion) = !unidades.containsKey(posicion)
 	method personajeActivo() = modo.personajeActivo()
+
+	method awaitFrames(frames) {
+		const milliseconds = (frames / config.framesPerSecond()) * 1000
+		return promise.esperarYHacer(milliseconds, {})		
+	}
 	
 	method cambiarModo(nuevoModo) {
 		modo.finalizarModo()
@@ -39,7 +46,6 @@ object juego {
 		unidades.remove(personaje.position())
 		personaje.position(posicion)
 		unidades.put(posicion, personaje)
-		
 	}
 
 	method agregarPersonaje(personaje) {
@@ -71,9 +77,7 @@ object juego {
 		tiles.clear()
 	}
 	
-	method ataqueFueRealizadoEn(position, habilidad) {
-		new OneTimeAnimation(animatedSprite=habilidad.animacion()).drawIn(position.left(1).down(1))
-	}
+	method ataqueFueRealizadoEn(position, habilidad) = new OneTimeAnimation(animatedSprite=habilidad.animacion()).drawIn(position.left(1).down(1))
 
 	method accionPrincipal() {
 		modo.accionPrincipal()

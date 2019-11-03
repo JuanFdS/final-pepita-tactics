@@ -44,8 +44,10 @@ object config {
 		game.addVisual(selector)
 	}
 	
+	method framesPerSecond() = 17
+	
 	method addClock() {
-		game.onTick(60, "Advance time", { clock.advanceTime(1)})
+		game.onTick(1000 / self.framesPerSecond(), "Advance time", { clock.advanceTime(1)})
 	}
 	
 

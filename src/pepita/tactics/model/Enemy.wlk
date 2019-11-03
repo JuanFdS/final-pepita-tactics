@@ -3,7 +3,7 @@ import pepita.tactics.game.AnimatedSprite.*
 
 class Enemy inherits Personaje {
 	
-	const activeSprite = new AnimatedSprite(name={"personajes/orc/"}, quantityOfFrames={4})
+	const activeSprite = new AnimatedSprite(name="personajes/orc/", quantityOfFrames=4)
 
 	override method maxDistance() = 2
 	method esEquipoHeroe() = false

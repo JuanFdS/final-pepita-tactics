@@ -1,4 +1,5 @@
 import pepita.tactics.game.juego.*
+import pepita.tactics.game.Promise.*
 import pepita.tactics.model.esperando.*
 import pepita.tactics.model.jugando.*
 import pepita.tactics.model.Habilidad.*
@@ -19,10 +20,7 @@ class Personaje {
 
 	method posicionesALasQuePuedoAtacar() = calculadorDePosicionesAlcanzables.posicionesAlcanzables(position, 1 .. 1)
 
-	method usarHabilidadEn(enemigo, habilidad) {
-		juego.ataqueFueRealizadoEn(enemigo.position(), habilidad)
-		habilidad.usarEn(enemigo)
-	}
+	method usarHabilidadEn(enemigo, habilidad) = juego.ataqueFueRealizadoEn(enemigo.position(), habilidad).forEach({ x => habilidad.usarEn(enemigo) })
 	
 	method terminoTuTurno() {
 		estado = esperando

@@ -29,8 +29,7 @@ class ModoAtaque inherits Modo {
 				if(personaje.esEquipoHeroe() == unidad.esEquipoHeroe()) {
 					self.error('Un amigo es una luz, no se la ataca')
 				} else {
-					personaje.usarHabilidadEn(unidad, habilidad)
-					self.finalizarAtaque()	
+					juego.cambiarModo(new ModoTransicion(transicion = self.realizarAtaqueEn(unidad), siguiente = new ModoLibre()))
 				}
 			}
 		}
@@ -44,9 +43,7 @@ class ModoAtaque inherits Modo {
 
 	method esPosicionAlcanzable() = self.posicionesAlcanzables().contains(selector.position())
 
-	method finalizarAtaque() {
-		juego.cambiarModo(new ModoTransicion(transicion = { turnometro.avanzarTurno() }, siguiente = new ModoLibre()))
-	}
+	method realizarAtaqueEn(unidad) = personaje.usarHabilidadEn(unidad, habilidad).forEach({ x => turnometro.avanzarTurno() }
 
 	override method arriba() {
 		selector.arriba()

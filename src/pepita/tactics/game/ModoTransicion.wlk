@@ -9,8 +9,7 @@ class ModoTransicion inherits Modo {
 	
 	override method inicializarModo() {
 		selector.invisible(true)
-		game.schedule(2000, {
-			transicion.apply()
+		transicion.forEach({ x =>
 			selector.invisible(false)
 			juego.cambiarModo(siguiente)
 		})
