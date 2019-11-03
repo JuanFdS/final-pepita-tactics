@@ -11,7 +11,7 @@ class Habilidad {
 
 object explosion inherits Habilidad {
 	override method menuItemDisplay() = menuItemDisplays.explosion()
-	override method animacion() = new AnimatedSprite(name = "habilidades/explosionRosa/", quantityOfFrames= 82, speedFactor = 3)
+	override method animacion() = new AnimatedSprite(name = "habilidades/explosionRosa/", quantityOfFrames= 82, speedFactor = 5)
 	override method usarEn(unidad) {
 		unidad.recibirDanio(50)
 	}
