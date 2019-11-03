@@ -28,7 +28,7 @@ class ModoMovimiento inherits Modo {
 			juego.mover(personaje, self.posicionObjetivo())
 
 			const terminarTurno = {
-				turnometro.avanzarTurno()
+				juego.avanzarTurno()
 				juego.cambiarModo(new ModoLibre())
 			}
 			
