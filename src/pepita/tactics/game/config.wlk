@@ -7,6 +7,7 @@ import pepita.tactics.model.Heroe.*
 import pepita.tactics.model.Habilidad.*
 import pepita.tactics.game.clock.*
 import pepita.tactics.game.TextDisplay.*
+import pepita.tactics.model.Casa.*
 
 object background {
 	const property position = game.origin()
@@ -38,6 +39,10 @@ object config {
 		juego.agregarPersonaje(new Heroe(position=game.center().left(3)))
 		
 		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(3)))
+		
+		juego.agregarTile(new Casa(position=game.center().down(2)))
+		juego.agregarTile(new Casa(position=game.center().down(2).left(1)))
+		juego.agregarTile(new Casa(position=game.center().down(2).left(2)))
 	}
 	
 	method addSelector() {

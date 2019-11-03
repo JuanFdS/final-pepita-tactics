@@ -17,10 +17,11 @@ import pepita.tactics.game.Promise.*
 
 
 object juego {
-	var property tiles = []
+	var property tilesAPintar = []
 	var modo = new ModoLibre()
 	var property unidades = new Dictionary()
 	const turnometro
+	var property tiles = new Dictionary()
 	
 	const barritasDeVidaDeUnidades = new Dictionary()
 	
@@ -29,7 +30,7 @@ object juego {
 		turnometro = new Turnometro(personajesOrdenados = unidades.values())
 	}
 	
-	method posicionEstaDesocupada(posicion) = !unidades.containsKey(posicion)
+	method posicionEstaDesocupada(posicion) = !(unidades.containsKey(posicion) || tiles.containsKey(posicion))
 	method personajeActivo() = modo.personajeActivo()
 
 	method awaitFrames(frames) {
@@ -62,6 +63,10 @@ object juego {
 		barritasDeVidaDeUnidades.put(personaje, barritaDeVida)
 	}
 	
+	method agregarTile(tile) {
+		tiles.put(tile.position(), tile)
+	}
+	
 	method eliminarPersonaje(personaje) {
 		const barritaDeVida = barritasDeVidaDeUnidades.get(personaje)
 		unidades.remove(personaje.position())
@@ -73,13 +78,13 @@ object juego {
 
 	method pintarPosiciones(posiciones, tileImagePath) {
 		self.despintarPosiciones()
-		tiles = posiciones.map { posicion => new TilePintada(position=posicion, image=tileImagePath) }
-		tiles.forEach { tile => game.addVisual(tile) }
+		tilesAPintar = posiciones.map { posicion => new TilePintada(position=posicion, image=tileImagePath) }
+		tilesAPintar.forEach { tile => game.addVisual(tile) }
 	}
 	
 	method despintarPosiciones() {
-		tiles.forEach { tile => game.removeVisual(tile)}
-		tiles.clear()
+		tilesAPintar.forEach { tile => game.removeVisual(tile)}
+		tilesAPintar.clear()
 	}
 	
 	method ataqueFueRealizadoEn(position, habilidad) = new OneTimeAnimation(animatedSprite=habilidad.animacion()).drawIn(position.left(1).down(1))
