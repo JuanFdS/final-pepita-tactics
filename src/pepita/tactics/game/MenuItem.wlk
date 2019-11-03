@@ -22,22 +22,17 @@ class MenuItem {
 
 class MenuItemDisplay {
 	const text
-	var box = null
-	var textDisplay = null
-	var property init = new Initialization(init={
+	const box
+	const textDisplay
+	var property position = null
+	
+	method initialize() {
 		box = new MenuItemBox(parent=self)
 		textDisplay = new MenuItemText(text=text, parent=self)
-		textDisplay.inicializar()
-	})
-	var property position = null
-
-	method inicializar() {
-		init.run(self)
 	}
 
 	method drawIn(aPosition) {
 		self.position(aPosition)
-		self.inicializar()
 		box.draw()
 		textDisplay.draw()
 	}
@@ -68,20 +63,15 @@ class MenuItemBox {
 class MenuItemText {
 	const text
 	const parent
-	var property init = new Initialization(init={
-		textDisplay = new TextDisplay(text=text, caracteresDeAncho=20, renglones=1, parent=self)
-		textDisplay.inicializar()
-	})
-	var textDisplay = null
+	const textDisplay
 
-	method inicializar() {
-		init.run(self)
-	}	
+	method initialize() {
+		textDisplay = new TextDisplay(text=text, caracteresDeAncho=20, renglones=1, parent=self)
+	}
 	
 	method position() = parent.position()
 	
 	method draw() {
-		self.inicializar()
 		textDisplay.draw()
 	}
 	

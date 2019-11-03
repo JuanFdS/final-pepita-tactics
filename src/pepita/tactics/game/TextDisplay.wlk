@@ -1,6 +1,4 @@
 import wollok.game.*
-import pepita.tactics.game.Initialization.*
-
 
 class Image {
 
@@ -10,10 +8,6 @@ class Image {
 }
 
 class LettersBlockDisplay {
-	var property init = new Initialization(init={
-		visuals = self.visuals()
-	})
-
 	const topLeft
 	const topCenter
 	const topRight
@@ -23,13 +17,13 @@ class LettersBlockDisplay {
 	const parent
 	const relativePos
 	
-	var visuals = []
+	const visuals
 	
-	method inicializar() {
-		init.run(self)
+	method initialize() {
+		visuals = self.calculateVisuals()
 	}
 
-	method visuals() {
+	method calculateVisuals() {
 		const topLeftVisual = topLeft + "-topLeft"
 		const topCenterVisual = topCenter + "-topCenter"
 		const topRightVisual = topRight + "-topRight"
@@ -42,7 +36,6 @@ class LettersBlockDisplay {
 	}
 
 	method draw() {
-		self.inicializar()
 		visuals.forEach{ visual => game.addVisualIn(visual, parent.position().right(relativePos.x()).up(relativePos.y()))}
 	}
 	
@@ -53,18 +46,15 @@ class LettersBlockDisplay {
 }
 
 class TextDisplay {
-	var property init = new Initialization(init={
-		visuals = self.visuals()
-		visuals.forEach { visual => visual.inicializar() }
-	})
-
 	const text
 	const caracteresDeAncho
 	const renglones
 	const parent
-	var visuals = []
+	const visuals
 	
-	method inicializar() { init.run(self) }
+	method initialize() {
+		visuals = self.calculateVisuals()
+	}
 	
 	method position() = parent.position()
 	
@@ -84,28 +74,28 @@ class TextDisplay {
 	
 	method getOr(list, index, default) = if(list.size() <= index) default else list.get(index)
 
-	method visuals() {
+	method calculateVisuals() {
+		const calculatedVisuals = []
 		const maxTextAllowed = renglones * self.width() * 6
 		if (text.size() > maxTextAllowed) throw new Exception(message="Too much text, max text allowed: " + maxTextAllowed + " , text passed: " + text.size())
 		const rows = self.chunksOfList(self.chunksOfText(), self.width())
 		const emptyChunk = "   "
 		const emptyRow = [emptyChunk, emptyChunk, emptyChunk]
 		const rowPairs = self.chunksOfList(rows, 2)
-		var relativePos = game.origin()
+		var relativePos = new Position(x=0, y=0)
 		rowPairs.forEach { rowPair =>
 			const firstRow = rowPair.first()
 			const secondRow = self.getOr(rowPair, 1, emptyRow)
 			firstRow.size().times { n =>
-				visuals.add(self.visualFromChunks(firstRow.get(n-1), self.getOr(secondRow, n-1, emptyChunk), relativePos))
+				calculatedVisuals.add(self.visualFromChunks(firstRow.get(n-1), self.getOr(secondRow, n-1, emptyChunk), relativePos))
 				relativePos = relativePos.right(1)
 			}
-			relativePos = game.at(0, relativePos.down(1).y())
+			relativePos = new Position(x=0, y=relativePos.down(1).y())
 		}
-		return visuals
+		return calculatedVisuals
 	}
 	
 	method draw() {
-		self.inicializar()
 		visuals.forEach { visual => visual.draw() }
 	}
 	

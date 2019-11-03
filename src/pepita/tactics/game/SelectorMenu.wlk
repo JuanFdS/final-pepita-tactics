@@ -1,14 +1,14 @@
 import wollok.game.*
-import pepita.tactics.game.Initialization.*
 
 class SelectorMenu {
 	var property menu
-	var property init = new Initialization(init={ self.reset() })
 	var yRelativo = 0
 	
-	method itemSeleccionado(items) = items.get(items.size() - 1 - yRelativo) //TODO: uff emprolijar esta mierda
+	method initialize() {
+		self.reset()
+	}
 	
-	method inicializar() { self.reset() }
+	method itemSeleccionado(items) = items.get(items.size() - 1 - yRelativo) //TODO: uff emprolijar esta mierda
 	
 	method x() = menu.position().x()
 	

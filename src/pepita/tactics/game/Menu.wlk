@@ -2,25 +2,21 @@ import pepita.tactics.model.selector.*
 import wollok.game.*
 import pepita.tactics.game.SelectorMenu.*
 import pepita.tactics.game.MenuItem.*
-import pepita.tactics.game.Initialization.*
 import pepita.tactics.game.juego.*
 
 class Menu {
 	const items = []
-	var property init = new Initialization(init = {
-		selectorMenu.menu(self)
-		selectorMenu.inicializar()
-	}, onRefresh = { selectorMenu.reset() })
-	const selectorMenu = new SelectorMenu()
+	const selectorMenu
+	
+	method initialize() {
+		selectorMenu = new SelectorMenu(menu = self)
+	}
 
 	method position() = selector.position().right(1)
 
 	method cantidadDeOpciones() = items.size()
-	
-	method inicializar() { init.run(self) }
 
 	method draw() {
-		self.inicializar()
 		var pos = self.position()
 		items.reverse().forEach{ item =>
 			item.drawIn(pos)
@@ -32,6 +28,7 @@ class Menu {
 	method agregarAccion(display, accion) {
 		const nuevoItem = new MenuItem(display = display, accionPrincipal = accion)
 		items.add(nuevoItem)
+		selectorMenu.reset()
 	}
 
 	method remove() {

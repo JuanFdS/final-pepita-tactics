@@ -11,7 +11,7 @@ import pepita.tactics.game.TemporaryVisual.*
 import pepita.tactics.model.selector.*
 import pepita.tactics.game.AnimatedSprite.*
 import pepita.tactics.game.OneTimeAnimation.*
-import pepita.tactics.game.turnometro.*
+import pepita.tactics.game.Turnometro.*
 import pepita.tactics.game.config.*
 import pepita.tactics.game.Promise.*
 
@@ -20,12 +20,13 @@ object juego {
 	var property tiles = []
 	var modo = new ModoLibre()
 	var property unidades = new Dictionary()
+	const turnometro
 	
 	const barritasDeVidaDeUnidades = new Dictionary()
 	
 	method inicializar() {
 		menuItemDisplays.inicializar()
-		turnometro.init(unidades.values())
+		turnometro = new Turnometro(personajesOrdenados = unidades.values())
 	}
 	
 	method posicionEstaDesocupada(posicion) = !unidades.containsKey(posicion)
@@ -34,6 +35,10 @@ object juego {
 	method awaitFrames(frames) {
 		const milliseconds = (frames / config.framesPerSecond()) * 1000
 		return promise.esperarYHacer(milliseconds, {})		
+	}
+	
+	method avanzarTurno() {
+		turnometro.avanzarTurno()
 	}
 	
 	method cambiarModo(nuevoModo) {

@@ -34,6 +34,12 @@ class Personaje {
 		enemigo.recibirDanio(ataque)
 	}
 	
+	method validarQueEsTuTurno() {
+		if(estado != jugando) {
+			self.error("No es mi turno")
+		}
+	}
+	
 	method recibirDanio(unDanio) {
 		vida = (vida - unDanio).max(0)
 		if(self.derrotado()) juego.eliminarPersonaje(self)

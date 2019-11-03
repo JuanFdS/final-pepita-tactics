@@ -3,15 +3,19 @@ import pepita.tactics.game.MenuItem.*
 
 object menuItemDisplays {
     const property moverse = new MenuItemDisplay(text="Moverse")
-    const property atacar = new MenuItemDisplay(text="Atacar")
-    const property pasar = new MenuItemDisplay(text="Pasar")
-	const property cancelar = new MenuItemDisplay(text="Cancelar")
-	const property explosion = new MenuItemDisplay(text="Explosion")
-	const property piedrazo = new MenuItemDisplay(text="Piedrazo")
-
-    method inicializar() {
-        [moverse, atacar, cancelar, pasar, explosion, piedrazo].
-            forEach { display => display.inicializar() }
-    }
+    const property atacar
+    const property pasar
+	const property cancelar
+	const property explosion
+	const property piedrazo
+	
+	method inicializar() {
+		moverse = new MenuItemDisplay(text="Moverse")
+		atacar = new MenuItemDisplay(text="Atacar")
+		pasar = new MenuItemDisplay(text="Pasar")
+		cancelar = new MenuItemDisplay(text="Cancelar")
+		explosion = new MenuItemDisplay(text="Explosion")
+		piedrazo = new MenuItemDisplay(text="Piedrazo")
+	}
 }
 
