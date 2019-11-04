@@ -8,6 +8,6 @@ class OneTimeAnimation {
 	method drawIn(position) {
 		game.addVisualIn(self, position)
 
-		return animatedSprite.loopAtLeastOnce().forEach({x => game.removeVisual(self) })
+		return animatedSprite.loopAtLeastOnce().forEach({x => game.schedule(0, { game.removeVisual(self) } ) })
 	}
 }

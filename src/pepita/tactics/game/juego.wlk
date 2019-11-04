@@ -34,7 +34,7 @@ object juego {
 	method personajeActivo() = modo.personajeActivo()
 
 	method awaitFrames(frames) {
-		const milliseconds = (frames / config.framesPerSecond()) * 1000
+		const milliseconds = (frames * 1000.0 / config.framesPerSecond())
 		return promise.esperarYHacer(milliseconds, {})		
 	}
 	

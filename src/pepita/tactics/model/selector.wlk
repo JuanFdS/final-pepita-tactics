@@ -16,6 +16,8 @@ object selector {
 		}
 	}
 	
+	method unidadSeleccionada(oSiNo) = juego.unidades().getOrElse(position, oSiNo)
+	
 	method arriba() {
 		position = position.up(1)
 	}

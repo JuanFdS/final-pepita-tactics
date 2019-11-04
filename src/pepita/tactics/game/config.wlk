@@ -8,6 +8,7 @@ import pepita.tactics.model.Habilidad.*
 import pepita.tactics.game.clock.*
 import pepita.tactics.game.TextDisplay.*
 import pepita.tactics.model.Casa.*
+import pepita.tactics.game.SideMenuDisplay.*
 
 object config {
 
@@ -53,7 +54,7 @@ object config {
 	}
 	
 	method addSideMenu() {
-		game.addVisualIn(new Image(path="assets/sidemenu/menu.png"), game.origin())
+		new SideMenuDisplay().draw()
 	}
 	
 	method framesPerSecond() = 17
