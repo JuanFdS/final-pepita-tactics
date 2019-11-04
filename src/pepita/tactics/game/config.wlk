@@ -9,28 +9,27 @@ import pepita.tactics.game.clock.*
 import pepita.tactics.game.TextDisplay.*
 import pepita.tactics.model.Casa.*
 
-object background {
-	const property position = game.origin()
-	
-	const property image = "background.png"
-}
-
 object config {
 
-	method width() = 20
+	method width() = 24
 
 	method height() = 20
 
 	method configureGame() {
 		game.width(self.width())
 		game.height(self.height())
-		game.addVisual(background)
 		self.addClock()
-		self.addCharacters()
-		self.addSelector()
+		self.addVisuals()
 		self.addKeyMap()
 		juego.inicializar()
 		
+	}
+	
+	method addVisuals() {
+		self.addBackground()
+		self.addCharacters()
+		self.addSelector()
+		self.addSideMenu()
 	}
 
 	method addCharacters() {
@@ -40,13 +39,21 @@ object config {
 		
 		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(3)))
 		
-		juego.agregarTile(new Casa(position=game.center().down(2)))
-		juego.agregarTile(new Casa(position=game.center().down(2).left(1)))
 		juego.agregarTile(new Casa(position=game.center().down(2).left(2)))
+		juego.agregarTile(new Casa(position=game.center().down(2).left(3)))
+		juego.agregarTile(new Casa(position=game.center().down(2).left(4)))
 	}
 	
 	method addSelector() {
 		game.addVisual(selector)
+	}
+	
+	method addBackground() {
+		game.addVisualIn(new Image(path="background.png"), game.origin())
+	}
+	
+	method addSideMenu() {
+		game.addVisualIn(new Image(path="assets/sidemenu/menu.png"), game.origin())
 	}
 	
 	method framesPerSecond() = 17
