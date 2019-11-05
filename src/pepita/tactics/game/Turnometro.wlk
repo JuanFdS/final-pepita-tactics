@@ -19,7 +19,7 @@ class Turnometro {
 	}
 	
 	method posicionarSelector() {
-		selector.position(self.personajeActivo().position())
+		selector.mover({ pos => self.personajeActivo().position()})
 	}
 	
 	method personajeActivo() = personajesOrdenados.first()

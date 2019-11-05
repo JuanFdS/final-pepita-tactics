@@ -34,11 +34,11 @@ object config {
 	}
 
 	method addCharacters() {
-		juego.agregarPersonaje(new Heroe(position=game.center()))
+		juego.agregarPersonaje(new Heroe(position=game.center(), nombre="Alicia"))
 		
-		juego.agregarPersonaje(new Heroe(position=game.center().left(3)))
+		juego.agregarPersonaje(new Heroe(position=game.center().left(3), nombre="Dorothy"))
 		
-		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(3)))
+		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(3), nombre="Draenor"))
 		
 		juego.agregarTile(new Casa(position=game.center().down(2).left(2)))
 		juego.agregarTile(new Casa(position=game.center().down(2).left(3)))

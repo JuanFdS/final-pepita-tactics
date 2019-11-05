@@ -4,8 +4,11 @@ import pepita.tactics.game.juego.*
 
 object selector {
 
-	var property position = game.center()
+	var position = game.center()
 	var property invisible = false
+	var property displays = []
+	
+	method position() = position
 
 	method image() = if(invisible) "empty.png" else (if(juego.personajeActivo()) "selector-red.png" else "selector-yellow.png")
 	
@@ -18,20 +21,33 @@ object selector {
 	
 	method unidadSeleccionada(oSiNo) = juego.unidades().getOrElse(position, oSiNo)
 	
+	method subscribirse(display) {
+		displays.add(display)
+	}
+	
+	method desuscribirse(display) {
+		displays.remove(display)
+	}
+	
+	method mover(movimiento) {
+		position = movimiento.apply(position)
+		displays.forEach { display => display.selectorSeMovio() }
+	}
+	
 	method arriba() {
-		position = position.up(1)
+		self.mover { pos => pos.up(1) }
 	}
 	
 	method abajo() {
-		position = position.down(1)
+		self.mover { pos => pos.down(1) }
 	}
 	
 	method izquierda() {
-		position = position.left(1)
+		self.mover { pos => pos.left(1) }
 	}
 	
 	method derecha() {
-		position = position.right(1)
+		self.mover { pos => pos.right(1) }
 	}
 }
 

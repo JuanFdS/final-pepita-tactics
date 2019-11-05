@@ -18,7 +18,7 @@ class ModoMenu inherits Modo {
 	}
 	
 	override method inicializarModo() {
-		selector.position(position)
+		selector.mover({ pos => position })
 		menu.draw()
 	}
 

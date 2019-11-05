@@ -12,6 +12,7 @@ class Personaje {
 	var property velocidad = 5
 	var estado = esperando
 	var property habilidades = [explosion]
+	const property nombre
 	
 	method maxDistance()
 	method esEquipoHeroe() = true
