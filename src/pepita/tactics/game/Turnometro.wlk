@@ -24,4 +24,8 @@ class Turnometro {
 	
 	method personajeActivo() = personajesOrdenados.first()
 	
+	method remove(personaje) {
+		personajesOrdenados.remove(personaje)
+	}
+	
 }
