@@ -15,8 +15,9 @@ class SideMenuDisplay {
 	}
 	
 	method remove() {
-		game.remove(sideMenu)
-		game.remove(displayDePersonajeSeleccionado)
+		game.removeVisual(sideMenu)
+		game.removeVisual(marcoPersonajeSeleccionado)
+		game.removeVisual(displayPersonajeSeleccionado)
 	}
 
 }

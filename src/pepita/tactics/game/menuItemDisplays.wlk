@@ -2,12 +2,12 @@ import wollok.game.*
 import pepita.tactics.game.MenuItem.*
 
 object menuItemDisplays {
-    const property moverse = new MenuItemDisplay(text="Moverse")
-    const property atacar
-    const property pasar
-	const property cancelar
-	const property explosion
-	const property piedrazo
+    var property moverse = null
+    var property atacar = null
+    var property pasar = null
+	var property cancelar = null
+	var property explosion = null
+	var property piedrazo = null
 	
 	method inicializar() {
 		moverse = new MenuItemDisplay(text="Moverse")

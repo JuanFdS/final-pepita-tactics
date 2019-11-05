@@ -1,5 +1,4 @@
 import wollok.game.*
-import pepita.tactics.juego.*
 
 object promise {
 	method pendiente(handlers) = new Promise(result = new Pending(handlers = handlers))

@@ -8,9 +8,9 @@ class AnimatedSprite {
 	const imageExtension = "png"
 	const quantityOfFrames
 	const speedFactor = 1
-	const imagenes
+	var imagenes = null
 	const timeSinceStarted = clock.timePassed()
-	const property loopAtLeastOnce
+	var property loopAtLeastOnce = null
 	
 	method initialize() {
 		imagenes = (0..quantityOfFrames - 1).map{ frameNumber => name + frameNumber + "." + imageExtension }

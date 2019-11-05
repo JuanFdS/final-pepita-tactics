@@ -20,7 +20,7 @@ object juego {
 	var property tilesAPintar = []
 	var modo = new ModoLibre()
 	var property unidades = new Dictionary()
-	const turnometro
+	var turnometro
 	var property tiles = new Dictionary()
 	
 	const barritasDeVidaDeUnidades = new Dictionary()

@@ -42,7 +42,7 @@ class ModoAtaque inherits Modo {
 
 	method esPosicionAlcanzable() = self.posicionesAlcanzables().contains(selector.position())
 
-	method realizarAtaqueEn(unidad) = personaje.usarHabilidadEn(unidad, habilidad).forEach({ x => juego.avanzarTurno() }
+	method realizarAtaqueEn(unidad) = personaje.usarHabilidadEn(unidad, habilidad).forEach({ x => juego.avanzarTurno() })
 
 	override method arriba() {
 		selector.arriba()

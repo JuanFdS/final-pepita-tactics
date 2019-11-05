@@ -17,7 +17,7 @@ class LettersBlockDisplay {
 	const parent
 	const relativePos
 	
-	const visuals
+	var visuals = null
 	
 	method initialize() {
 		visuals = self.calculateVisuals()
@@ -50,7 +50,7 @@ class TextDisplay {
 	const caracteresDeAncho
 	const renglones
 	const parent
-	const visuals
+	var visuals = null
 	
 	method initialize() {
 		visuals = self.calculateVisuals()

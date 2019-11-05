@@ -1,7 +1,5 @@
 import wollok.game.*
 import pepita.tactics.game.TextDisplay.*
-import pepita.tactics.game.Initialization.*
-
 
 class MenuItem {
 	const display
@@ -22,8 +20,8 @@ class MenuItem {
 
 class MenuItemDisplay {
 	const text
-	const box
-	const textDisplay
+	var box = null
+	var textDisplay = null
 	var property position = null
 	
 	method initialize() {
@@ -63,7 +61,7 @@ class MenuItemBox {
 class MenuItemText {
 	const text
 	const parent
-	const textDisplay
+	var textDisplay = null
 
 	method initialize() {
 		textDisplay = new TextDisplay(text=text, caracteresDeAncho=20, renglones=1, parent=self)

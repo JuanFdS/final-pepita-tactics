@@ -4,7 +4,6 @@ import pepita.tactics.game.ModoMovimiento.*
 import pepita.tactics.game.ModoAtaque.*
 import pepita.tactics.game.Modo.*
 import pepita.tactics.game.ModoMenu.*
-import pepita.tactics.game.ModoLibre.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.menuItemDisplays.*

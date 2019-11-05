@@ -6,7 +6,7 @@ import pepita.tactics.game.juego.*
 
 class Menu {
 	const items = []
-	const selectorMenu
+	var selectorMenu = null
 	
 	method initialize() {
 		selectorMenu = new SelectorMenu(menu = self)
