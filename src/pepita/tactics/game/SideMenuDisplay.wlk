@@ -3,64 +3,99 @@ import pepita.tactics.game.TextDisplay.*
 import pepita.tactics.model.selector.*
 
 class SideMenuDisplay {
-	
-	const sideMenu = new Image(path="sidemenu/menu.png")
-	const marcoPersonajeSeleccionado =  new Image(path="sidemenu/displayPersonaje.png")
-	const displayPersonajeSeleccionado = new DisplayPersonajeSeleccionado()
-	const displayNombre = new DisplayNombre(position=game.at(game.width() - 4, game.height() - 2))
-	
+
+	const sideMenu = new Image(path = "sidemenu/menu.png")
+	const marcoPersonajeSeleccionado = new Image(path = "sidemenu/displayPersonaje.png")
+	const displayPersonajes = new DisplayDePersonajes(position = game.at(game.width() - 4, game.height() - 2))
+
 	method draw() {
 		game.addVisualIn(sideMenu, game.origin())
 		game.addVisualIn(marcoPersonajeSeleccionado, game.at(game.width() - 4, game.height() - 4))
-		game.addVisualIn(displayPersonajeSeleccionado, game.at(game.width() - 3, game.height() - 3))
-		displayNombre.draw()
+		displayPersonajes.draw()
 	}
-	
+
 	method remove() {
 		game.removeVisual(sideMenu)
 		game.removeVisual(marcoPersonajeSeleccionado)
-		game.removeVisual(displayPersonajeSeleccionado)
-		displayNombre.remove()
+		displayPersonajes.remove()
 	}
 
 }
 
-class DisplayPersonajeSeleccionado {
+class DisplayRetrato {
+	const personaje
 	const property position
-	method image() = selector.unidadSeleccionada({ empty }).imageEsperando()
+
+	method image() = personaje.imageEsperando()
+	
+	method draw() {
+		game.addVisual(self)
+	}
+	
+	method remove() {
+		game.removeVisual(self)
+	}
 }
 
 object empty {
+
 	method imageEsperando() = "empty.png"
-	
+
 	method nombre() = ""
+
 }
 
-class DisplayNombre {
+class DisplayParaUnPersonaje {
+
+	const personaje
+	const property position
+	var displayNombre = null
+	var displayRetrato = null
+
+	method initialize() {
+		displayNombre = new TextDisplay(text = "             " + personaje.nombre(), renglones = 2, caracteresDeAncho = 10, parent = self)
+		displayRetrato = new DisplayRetrato(personaje=personaje, position = position.down(1).right(1))
+	}
+
+	method draw() {
+		displayNombre.draw()
+		displayRetrato.draw()
+	}
+
+	method remove() {
+		displayNombre.remove()
+		displayRetrato.remove()
+	}
+
+}
+
+class DisplayDePersonajes {
+
 	const displays = new Dictionary()
 	const property position
 	var displayActual = null
-	
+
 	method initialize() {
-		displayActual = self.crearDisplayPara(empty)
+		displayActual = self.displayPara(empty)
 		selector.subscribirse(self)
 	}
-	
+
 	method draw() {
 		const unidadSeleccionada = selector.unidadSeleccionada({ empty })
-		const display = displays.getOrElse(unidadSeleccionada, {
-			const nuevoDisplay = self.crearDisplayPara(unidadSeleccionada)
-			displays.put(unidadSeleccionada, nuevoDisplay)
-			return nuevoDisplay
-		})
-		displayActual = display
-		display.draw()
+		displayActual = self.displayPara(unidadSeleccionada)
+		displayActual.draw()
 	}
-	
-	method crearDisplayPara(unidad) = new TextDisplay(text="             " + unidad.nombre(),renglones=2,caracteresDeAncho=10, parent=self)
-	
+
+	method displayPara(unidad) = displays.getOrElse(unidad, {
+		const nuevoDisplay = new DisplayParaUnPersonaje(personaje = unidad, position = position)
+		displays.put(unidad, nuevoDisplay)
+		return nuevoDisplay
+	})
+
 	method selectorSeMovio() {
 		displayActual.remove()
 		self.draw()
 	}
+
 }
+
