@@ -37,11 +37,31 @@ class DisplayRetrato {
 	}
 }
 
+class DisplayStats {
+	const personaje
+	const property position
+	var displayVelocidad = null
+	
+	method initialize() {
+		displayVelocidad = new TextDisplay(text = "Velocidad" + personaje.velocidad(), renglones = 2, caracteresDeAncho = "Velocidad".size(), parent = self)
+	}
+	
+	method draw() {
+		displayVelocidad.draw()
+	}
+	
+	method remove() {
+		displayVelocidad.remove()
+	}
+}
+
 object empty {
 
 	method imageEsperando() = "empty.png"
 
-	method nombre() = ""
+	method draw() {}
+	
+	method remove() {}
 
 }
 
@@ -51,20 +71,24 @@ class DisplayParaUnPersonaje {
 	const property position
 	var displayNombre = null
 	var displayRetrato = null
+	var displayStats = null
 
 	method initialize() {
 		displayNombre = new TextDisplay(text = "             " + personaje.nombre(), renglones = 2, caracteresDeAncho = 10, parent = self)
 		displayRetrato = new DisplayRetrato(personaje=personaje, position = position.down(1).right(1))
+		displayStats = new DisplayStats(personaje=personaje, position = position.down(3))
 	}
 
 	method draw() {
 		displayNombre.draw()
 		displayRetrato.draw()
+		displayStats.draw()
 	}
 
 	method remove() {
 		displayNombre.remove()
 		displayRetrato.remove()
+		displayStats.remove()
 	}
 
 }
@@ -76,7 +100,8 @@ class DisplayDePersonajes {
 	var displayActual = null
 
 	method initialize() {
-		displayActual = self.displayPara(empty)
+		displays.put(empty, empty)
+		displayActual = empty
 		selector.subscribirse(self)
 	}
 
