@@ -7,6 +7,7 @@ mogrify -resize 15x20! *.png
 
 convert ?.png -gravity SouthEast -extent 50x50 -set filename:original %t '%[filename:original]-bottomRight.png'
 convert ?.png -gravity SouthWest -extent 50x50 -set filename:original %t '%[filename:original]-bottomLeft.png'
+convert ?.png -gravity South -extent 50x50 -set filename:original %t '%[filename:original]-bottomCenter.png'
 convert ?.png -gravity NorthWest -extent 50x50 -set filename:original %t '%[filename:original]-topLeft.png'
 convert ?.png -gravity NorthEast -extent 50x50 -set filename:original %t '%[filename:original]-topRight.png'
 convert ?.png -gravity North -extent 50x50 -set filename:original %t '%[filename:original]-topCenter.png'
