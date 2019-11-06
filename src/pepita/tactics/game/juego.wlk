@@ -87,6 +87,8 @@ object juego {
 		tilesAPintar.clear()
 	}
 	
+	method personajes() = unidades.values()
+	
 	method ataqueFueRealizadoEn(position, habilidad) = new OneTimeAnimation(animatedSprite=habilidad.animacion()).drawIn(position.left(1).down(1))
 
 	method accionPrincipal() {

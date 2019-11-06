@@ -1,6 +1,8 @@
 import wollok.game.*
 import pepita.tactics.game.TextDisplay.*
 import pepita.tactics.model.selector.*
+import pepita.tactics.game.juego.*
+import pepita.tactics.game.DynamicNumberDisplay.*
 
 class SideMenuDisplay {
 
@@ -12,6 +14,7 @@ class SideMenuDisplay {
 		game.addVisualIn(sideMenu, game.origin())
 		game.addVisualIn(marcoPersonajeSeleccionado, game.at(game.width() - 4, game.height() - 4))
 		displayPersonajes.draw()
+		displayPersonajes.generarDisplaysPara(juego.personajes())
 	}
 
 	method remove() {
@@ -37,21 +40,59 @@ class DisplayRetrato {
 	}
 }
 
+class Posicionado {
+	const property position
+}
+
+class DisplayStat {
+	const property position
+	const property label
+	const property calcularValor
+	var labelDisplay = null
+	var valorDisplay = null
+
+	method initialize() {
+		labelDisplay = new TextDisplay(text = label,
+									  renglones = 1,
+									  caracteresDeAncho = label.size(),
+									  parent = self)
+	    valorDisplay = new DynamicNumberDisplay(calcularNumero = calcularValor, parent = self, renglon = renglonInferior)
+	}
+
+	method draw() {
+		labelDisplay.draw()
+		valorDisplay.draw()
+	}
+
+	method remove() {
+		labelDisplay.remove()
+		valorDisplay.remove()
+	}
+}
+
 class DisplayStats {
 	const personaje
 	const property position
 	var displayVelocidad = null
-	
+	var displaySalud = null
+	var displayMovilidad = null
+
 	method initialize() {
-		displayVelocidad = new TextDisplay(text = "Velocidad" + personaje.velocidad(), renglones = 2, caracteresDeAncho = "Velocidad".size(), parent = self)
+		displayVelocidad = new DisplayStat(label = "Velocidad", calcularValor = { personaje.velocidad() }, position = position)
+		displaySalud = new DisplayStat(label = "Salud", calcularValor = { personaje.vida() }, position = position.down(1))
+		displayMovilidad = new DisplayStat(label = "Movilidad", calcularValor = { personaje.maxDistance() }, position = position.down(2))
 	}
-	
+
 	method draw() {
 		displayVelocidad.draw()
+		displaySalud.draw()
+		displayMovilidad.draw()
 	}
-	
+
 	method remove() {
 		displayVelocidad.remove()
+		displaySalud.remove()
+		displayMovilidad.remove()
 	}
 }
 
@@ -116,6 +157,10 @@ class DisplayDePersonajes {
 		displays.put(unidad, nuevoDisplay)
 		return nuevoDisplay
 	})
+	
+	method generarDisplaysPara(unidades) {
+		unidades.forEach { unidad => self.displayPara(unidad) }
+	}
 
 	method selectorSeMovio() {
 		displayActual.remove()
