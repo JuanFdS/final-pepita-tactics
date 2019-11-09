@@ -1,15 +1,26 @@
 #!/bin/bash
 set -euo pipefail
 
-fontToPngs $1 /usr/local/share/fonts/pixelart.ttf
+font=../../assets/fonts/PressStart2P.ttf
 
-mogrify -resize 15x20! *.png
+fold -w1 <<<$(cat ../../scripts/alphabet.txt) | xargs -I% -- convert -depth 8 -font $font -strokewidth 1 -stroke black -background transparent -fill white -pointsize 18 label:% %.png
 
-convert ?.png -gravity SouthEast -extent 50x50 -set filename:original %t '%[filename:original]-bottomRight.png'
-convert ?.png -gravity SouthWest -extent 50x50 -set filename:original %t '%[filename:original]-bottomLeft.png'
-convert ?.png -gravity South -extent 50x50 -set filename:original %t '%[filename:original]-bottomCenter.png'
-convert ?.png -gravity NorthWest -extent 50x50 -set filename:original %t '%[filename:original]-topLeft.png'
-convert ?.png -gravity NorthEast -extent 50x50 -set filename:original %t '%[filename:original]-topRight.png'
-convert ?.png -gravity North -extent 50x50 -set filename:original %t '%[filename:original]-topCenter.png'
+# mogrify -resize 15x20! *.png
 
-convert *.png -transparent white -set filename:original %t '%[filename:original].png'
+convert ?.png -gravity SouthEast -background transparent -extent 50x50 -set filename:original %t '%[filename:original]-bottomRight.png'
+convert ?.png -gravity SouthWest -background transparent -extent 50x50 -set filename:original %t '%[filename:original]-bottomLeft.png'
+convert ?.png -gravity South -background transparent -extent 50x50 -set filename:original %t '%[filename:original]-bottomCenter.png'
+convert ?.png -gravity NorthWest -background transparent -extent 50x50 -set filename:original %t '%[filename:original]-topLeft.png'
+convert ?.png -gravity NorthEast -background transparent -extent 50x50 -set filename:original %t '%[filename:original]-topRight.png'
+convert ?.png -gravity North -background transparent -extent 50x50 -set filename:original %t '%[filename:original]-topCenter.png'
+
+for i in {1..100}
+do
+  echo $i".png"
+  convert -depth 8 -font $font -strokewidth 1 -stroke black -background transparent -fill white -pointsize 22 label:$i $i".png"
+  # mogrify -resize 15x20! $i".png"
+  convert $i".png" -gravity NorthEast -background transparent -extent 150x50 $i"-top.png"
+  convert $i".png" -gravity SouthEast -background transparent -extent 150x50 $i"-bottom.png"
+done
+
+# convert *.png -fuzz 30% -transparent white -set filename:original %t '%[filename:original].png'

@@ -139,7 +139,7 @@ class DisplayDePersonajes {
 	const displays = new Dictionary()
 	const property position
 	var displayActual = null
-
+	
 	method initialize() {
 		displays.put(empty, empty)
 		displayActual = empty
@@ -163,8 +163,10 @@ class DisplayDePersonajes {
 	}
 
 	method selectorSeMovio() {
-		displayActual.remove()
-		self.draw()
+		game.schedule(0, {
+			displayActual.remove()
+			self.draw()
+		})
 	}
 
 }

@@ -35,40 +35,31 @@ object renglonSuperior {
 	const property left = "-topLeft"
 	const property center = "-topCenter"
 	const property right = "-topRight"
+	const property verticalPosition = "-top"
 } 
 
 object renglonInferior {
 	const property left = "-bottomLeft"
 	const property center = "-bottomCenter"
-	const property right = "-bottomRight" 
+	const property right = "-bottomRight"
+	const property verticalPosition = "-bottom" 
 }
 
 class DynamicNumberDisplay {
 	const calcularNumero
 	const renglon
 	const parent
-	var visuals = null
-	
-	method initialize() {
-		visuals = self.calculateVisuals()
-	}
-	
-	method calculateVisuals() {
-		const digitos = new Digitos(calcularNumero = calcularNumero)
-		return [new DynamicDigitDisplay(calcularDigito = { digitos.centenas() }, modifier = renglon.left(), parent = self),
-				new DynamicDigitDisplay(calcularDigito = { digitos.decenas() }, modifier = renglon.center(), parent = self),
-				new DynamicDigitDisplay(calcularDigito = { digitos.unidades() }, modifier = renglon.right(), parent = self)
-		]
-	}
 	
 	method position() = parent.position()
 
 	method draw() {
-		visuals.forEach { visual => visual.draw() }
+		game.addVisual(self)
 	}
 	
 	method remove() {
-		visuals.forEach { visual => visual.remove() }
+		game.removeVisual(self)
 	}
+	
+	method image() = "font8bits/" + calcularNumero.apply().toString() + renglon.verticalPosition() + ".png" 
 }
 
