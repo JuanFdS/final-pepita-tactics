@@ -1,5 +1,7 @@
 import pepita.tactics.model.Personaje.*
 import pepita.tactics.game.AnimatedSprite.*
+import pepita.tactics.game.ModoLibre.*
+
 
 class Heroe inherits Personaje {
 	
@@ -8,5 +10,7 @@ class Heroe inherits Personaje {
 	
 	override method imageEsperando() = "personajes/wizard/1.png"
 	override method imageJugando() = activeSprite.image()
+	
+	override method modoDeTuTurno() = new ModoLibre()
 }
 

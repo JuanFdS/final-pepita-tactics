@@ -28,6 +28,7 @@ object juego {
 	method inicializar() {
 		menuItemDisplays.inicializar()
 		turnometro = new Turnometro(personajesOrdenados = unidades.values())
+		self.cambiarModo(turnometro.personajeActivo().modoDeTuTurno())
 	}
 	
 	method posicionEstaDesocupada(posicion) = !(unidades.containsKey(posicion) || tiles.containsKey(posicion))
@@ -40,6 +41,7 @@ object juego {
 	
 	method avanzarTurno() {
 		turnometro.avanzarTurno()
+		self.cambiarModo(turnometro.personajeActivo().modoDeTuTurno())
 	}
 	
 	method cambiarModo(nuevoModo) {
@@ -49,9 +51,14 @@ object juego {
 	}
 
 	method mover(personaje, posicion) {
-		unidades.remove(personaje.position())
-		personaje.position(posicion)
-		unidades.put(posicion, personaje)
+		if(personaje.position() != posicion) {
+			if(!self.posicionEstaDesocupada(posicion)) {
+				self.error("No se puede mover a esa posicion") 
+			}
+			unidades.remove(personaje.position())
+			personaje.position(posicion)
+			unidades.put(posicion, personaje)	
+		}
 	}
 
 	method agregarPersonaje(personaje) {

@@ -48,7 +48,7 @@ class ModoMovimiento inherits Modo {
 		}
 	}
 
-	method posicionesAlcanzables() = personaje.posicionesALasQueMePuedoMover().filter { posicion => juego.posicionEstaDesocupada(posicion) } 
+	method posicionesAlcanzables() = personaje.posicionesALasQueMePuedoMover() 
 
 	method posicionObjetivo() = selector.position()
 

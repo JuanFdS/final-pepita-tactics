@@ -1,18 +1,13 @@
 import pepita.tactics.game.Modo.*
-import pepita.tactics.game.juego.*
-import wollok.game.*
 import pepita.tactics.model.selector.*
 
-class ModoTransicion inherits Modo {
-	const transicion
-	const siguiente
-	
+class ModoBloqueado inherits Modo {
 	override method inicializarModo() {
 		selector.invisible(true)
-		transicion.forEach({ x =>
-			selector.invisible(false)
-			juego.cambiarModo(siguiente)
-		})
+	}
+	
+	override method finalizarModo() {
+		selector.invisible(false)
 	}
 
 	override method accionSecundaria() {}

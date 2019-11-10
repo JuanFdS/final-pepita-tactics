@@ -51,16 +51,18 @@ class ModoMenu inherits Modo {
 	}
 }
 
-object modoMenuDeHabilidades {
-	method crear(position, modoAnterior, unidad) {
-		const nuevoModoMenu = new ModoMenu(modoAnterior=modoAnterior, position=position)
-	 	const menuitemsDeAtaques = unidad.habilidades().map { habilidad =>
-	 		new MenuItem(display = habilidad.menuItemDisplay(),
-				 accionPrincipal = { juego.cambiarModo(new ModoAtaque(modoAnterior=self, personaje=unidad, habilidad=habilidad)) }
-	 		)
-	 	}
-		const nuevoMenu = new Menu(items=menuitemsDeAtaques)
-	 	nuevoModoMenu.menu(nuevoMenu)
-	 	return nuevoModoMenu
-	}
-}
+//object modoMenuDeHabilidades {
+//	method crear(position, modoAnterior, unidad) {
+//		const nuevoModoMenu = new ModoMenu(modoAnterior=modoAnterior, position=position)
+//	 	unidad.habilidades().forEach { habilidad =>
+//	 		const nuevoModoDeAtaque = new ModoAtaque(modoAnterior=nuevoModoMenu, personaje=unidad, habilidad=habilidad)
+//	 		nuevoModoMenu.agregarCambioDeModo(habilidad.menuItemDisplay(), { nuevoModoDeAtaque })
+//	 		new MenuItem(display = habilidad.menuItemDisplay(),
+//				 accionPrincipal = { juego.cambiarModo(new ModoAtaque(modoAnterior=self, personaje=unidad, habilidad=habilidad)) }
+//	 		)
+//	 	}
+//		const nuevoMenu = new Menu(items=menuitemsDeAtaques)
+//	 	nuevoModoMenu.menu(nuevoMenu)
+//	 	return nuevoModoMenu
+//	}
+//}

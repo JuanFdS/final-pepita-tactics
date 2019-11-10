@@ -34,11 +34,16 @@ object config {
 	}
 
 	method addCharacters() {
-		juego.agregarPersonaje(new Heroe(position=game.center(), nombre="Alicia"))
+		juego.agregarPersonaje(new Heroe(position=game.center().left(5), nombre="Adelaide"))
+		juego.agregarPersonaje(new Heroe(position=game.center().left(5).up(3), nombre="Dorothy"))
+		juego.agregarPersonaje(new Heroe(position=game.center().left(5).down(3), nombre="Sabrina"))
 		
-		juego.agregarPersonaje(new Heroe(position=game.center().left(3), nombre="Dorothy"))
-		
-		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(3), nombre="Draenor"))
+		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(5).up(5), nombre="Draenor"))
+		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(7), nombre=""))
+		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(5).down(3), nombre=""))
+		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(2), nombre=""))
+		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(1).up(3), nombre=""))
+		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(6).down(2), nombre=""))
 		
 		juego.agregarTile(new Casa(position=game.center().down(2).left(2)))
 		juego.agregarTile(new Casa(position=game.center().down(2).left(3)))

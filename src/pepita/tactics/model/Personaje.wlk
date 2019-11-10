@@ -11,13 +11,14 @@ class Personaje {
 	var property vida = 100
 	var property velocidad = 5
 	var estado = esperando
-	var property habilidades = [explosion]
+	var property habilidades = [explosion, piedrazo]
 	const property nombre
 	
+	method modoDeTuTurno()
 	method maxDistance()
 	method esEquipoHeroe() = true
 
-	method posicionesALasQueMePuedoMover() = calculadorDePosicionesAlcanzables.posicionesAlcanzables(position, (1 .. self.maxDistance()))
+	method posicionesALasQueMePuedoMover() = calculadorDePosicionesAlcanzables.posicionesAlcanzables(position, (1 .. self.maxDistance())).filter { posicion => juego.posicionEstaDesocupada(posicion) }
 
 	method posicionesALasQuePuedoAtacar() = calculadorDePosicionesAlcanzables.posicionesAlcanzables(position, 1 .. 1)
 

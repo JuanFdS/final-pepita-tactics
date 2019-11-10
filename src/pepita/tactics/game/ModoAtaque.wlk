@@ -6,7 +6,7 @@ import pepita.tactics.game.ModoMenu.*
 import pepita.tactics.game.Menu.*
 import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.menuItemDisplays.*
-import pepita.tactics.game.ModoTransicion.*
+import pepita.tactics.game.ModoBloqueado.*
 
 class ModoAtaque inherits Modo {
 
@@ -28,7 +28,8 @@ class ModoAtaque inherits Modo {
 				if(personaje.esEquipoHeroe() == unidad.esEquipoHeroe()) {
 					self.error('Un amigo es una luz, no se la ataca')
 				} else {
-					juego.cambiarModo(new ModoTransicion(transicion = self.realizarAtaqueEn(unidad), siguiente = new ModoLibre()))
+					juego.cambiarModo(new ModoBloqueado())
+					self.realizarAtaqueEn(unidad)
 				}
 			}
 		}
