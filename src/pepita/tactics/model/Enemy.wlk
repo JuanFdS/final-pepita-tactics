@@ -18,36 +18,45 @@ class Enemy inherits Personaje {
 	override method modoDeTuTurno() = new ModoEnemigo(personaje = self)
 	
 	method actuar() {
-		const posicionesDelEnemigo = juego.personajes().filter { personaje => personaje.esEquipoHeroe() }.map { personaje => personaje.position() }
-		const posicionDeEnemigoMasCercano = posicionesDelEnemigo.min { posicion => posicion.distance(position) }
+		const enemigoElegido = self.enemigoObjetivo()
 		const movimientosPosibles = self.posicionesALasQueMePuedoMover()
-		juego.pintarPosiciones(movimientosPosibles, "tileAlcanzable.png")
-		return juego.awaitFrames(10).then({ x =>
-			const posicionDeseada = movimientosPosibles.min({ posicion => posicion.distance(posicionDeEnemigoMasCercano) })
-			juego.despintarPosiciones()
-			juego.mover(self, posicionDeseada)	
-			return juego.awaitFrames(10)
-		}).then({ x => 
-			if(habilidades.any { habilidad => habilidad.posicionesAlcanzablesPara(self).contains(posicionDeEnemigoMasCercano) }) {
-				const habilidad = habilidades.find { habilidad => habilidad.posicionesAlcanzablesPara(self).contains(posicionDeEnemigoMasCercano) }
-				const enemigo = juego.unidades().get(posicionDeEnemigoMasCercano)
-				return self.usarHabilidadEn(enemigo, habilidad)
-			} else {
-				return promise.resuelta(unit)
-			}
+		return self.anunciarMovimiento(movimientosPosibles).then({ x =>
+			self.concretarMovimiento(self.mejorPosicion(movimientosPosibles, enemigoElegido))			
+		}).then({ x =>
+			self.intentarUsarHabilidad(enemigoElegido)
 		})
-//		then({ x =>
-//			console.println("3")
-//			if(habilidades.any { habilidad => habilidad.posicionesAlcanzablesPara(self).contains(posicionDeEnemigoMasCercano) }) {
-//				console.println("4")
-//				const habilidad = habilidades.find { habilidad => habilidad.posicionesALasQuePuedeAtacar(self) }
-//				const enemigo = juego.unidades().get(posicionDeEnemigoMasCercano)
-//				return self.usarHabilidadEn(enemigo, habilidad)
-//			} else {
-//				console.println("1")
-//				return promise.resuelta(unit)	
-//			}	
-//		})	
+	}
+	
+	method enemigoObjetivo() {
+		const enemigoMasCercano = juego.personajes().filter { personaje => personaje.esEquipoHeroe() }.min { personaje => personaje.position().distance(position) }
+		return enemigoMasCercano
+	}
+	
+	method anunciarMovimiento(posiciones) {
+		juego.pintarPosiciones(posiciones, "tileAlcanzable.png")
+		return juego.awaitFrames(10)
+	}
+	
+	method mejorPosicion(posicionesPosibles, enemigo) = posicionesPosibles.min({ posicion => posicion.distance(enemigo.position()) })
+	
+	method concretarMovimiento(posicionDestino) {
+		juego.mover(self, posicionDestino)
+		juego.despintarPosiciones()
+		return juego.awaitFrames(10)
+	}
+	
+	method habilidadesPosiblesContra(enemigo) = habilidades.filter({ habilidad => habilidad.posicionesAlcanzablesPara(self).contains(enemigo.position()) })
+	
+	method elegirHabilidadContra(habilidades, enemigo) = habilidades.anyOne()
+	
+	method intentarUsarHabilidad(enemigo) {
+		const habilidades = self.habilidadesPosiblesContra(enemigo)
+		if(habilidades.isEmpty()) {
+			return promise.resuelta(unit)
+		} else {
+			const habilidad = self.elegirHabilidadContra(habilidades, enemigo)
+			return self.usarHabilidadEn(enemigo, habilidad)	
+		}
 	}
 }
 
