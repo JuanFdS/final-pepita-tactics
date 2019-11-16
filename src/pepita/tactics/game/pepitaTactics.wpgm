@@ -6,6 +6,8 @@ program pepitaTactics {
 	
 	config.configureGame()
 
+	game.schedule(0, { config.initializeGame() })
+
 	game.start()
 
 }

@@ -8,6 +8,7 @@ object menuItemDisplays {
 	var property cancelar = null
 	var property explosion = null
 	var property piedrazo = null
+	var property tornado = null
 	
 	method inicializar() {
 		moverse = new MenuItemDisplay(text="Moverse")
@@ -16,6 +17,7 @@ object menuItemDisplays {
 		cancelar = new MenuItemDisplay(text="Cancelar")
 		explosion = new MenuItemDisplay(text="Explosion")
 		piedrazo = new MenuItemDisplay(text="Piedrazo")
+		tornado = new MenuItemDisplay(text="Tornado")
 	}
 }
 

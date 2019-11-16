@@ -7,6 +7,10 @@ class Image {
 	method image() = path
 }
 
+class Posicionado {
+	const property position
+}
+
 class LettersBlockDisplay {
 	const topLeft
 	const topCenter

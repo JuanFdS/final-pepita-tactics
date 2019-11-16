@@ -40,10 +40,6 @@ class DisplayRetrato {
 	}
 }
 
-class Posicionado {
-	const property position
-}
-
 class DisplayStat {
 	const property position
 	const property label
@@ -76,23 +72,37 @@ class DisplayStats {
 	var displayVelocidad = null
 	var displaySalud = null
 	var displayMovilidad = null
+	var displayHabilidades = null
 
 	method initialize() {
 		displayVelocidad = new DisplayStat(label = "Velocidad", calcularValor = { personaje.velocidad() }, position = position)
 		displaySalud = new DisplayStat(label = "Salud", calcularValor = { personaje.vida() }, position = position.down(1))
 		displayMovilidad = new DisplayStat(label = "Movilidad", calcularValor = { personaje.maxDistance() }, position = position.down(2))
+		displayHabilidades = self.calcularDisplayDeHabilidades(position.down(3))
 	}
+	
+	method calcularDisplayDeHabilidades(posicion) {
+		const habilidades = personaje.habilidades().map({ habilidad => " " + habilidad.nombre() })
+		const lineasDelDisplay = ["Habilidades"] + habilidades
+		const maximoLargo = lineasDelDisplay.max({ linea => linea.size() }).size()
+		const text = lineasDelDisplay.map({ linea => self.pad(linea, maximoLargo) }).join("")
+		return new TextDisplay(text = text, renglones = habilidades.size() + 1, caracteresDeAncho = maximoLargo, parent = new Posicionado(position = posicion))
+	}
+	
+	method pad(nombre, size) = nombre + (nombre.size()..size + 1).map({ n => "" }).join(" ")
 
 	method draw() {
 		displayVelocidad.draw()
 		displaySalud.draw()
 		displayMovilidad.draw()
+		displayHabilidades.draw()
 	}
 
 	method remove() {
 		displayVelocidad.remove()
 		displaySalud.remove()
 		displayMovilidad.remove()
+		displayHabilidades.remove()
 	}
 }
 

@@ -11,18 +11,26 @@ import pepita.tactics.model.Casa.*
 import pepita.tactics.game.SideMenuDisplay.*
 
 object config {
-
 	method width() = 24
 
 	method height() = 20
-
+	
 	method configureGame() {
 		game.width(self.width())
 		game.height(self.height())
-		self.addClock()
-		self.addVisuals()
-		self.addKeyMap()
-		juego.inicializar()
+	}
+
+	method initializeGame() {
+		const pos = new Posicionado(position=game.center().left(1))
+		const cargando = new TextDisplay(text = "Cargando", renglones = 1, caracteresDeAncho = "Cargando...".size(), parent = pos)
+		cargando.draw()
+		game.schedule(0, {
+			self.addClock()
+			self.addVisuals()
+			self.addKeyMap()
+			juego.inicializar()
+			cargando.remove()
+		})
 		
 	}
 	
@@ -34,17 +42,18 @@ object config {
 	}
 
 	method addCharacters() {
-		juego.agregarPersonaje(new Heroe(position=game.center().left(5), nombre="Adelaide"))
-		juego.agregarPersonaje(new Heroe(position=game.center().left(5).up(3), nombre="Dorothy"))
-		juego.agregarPersonaje(new Heroe(position=game.center().left(5).down(3), nombre="Sabrina"))
-		
-		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(5).up(5), nombre="Draenor"))
-		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(7), nombre=""))
-		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(5).down(3), nombre=""))
-		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(2), nombre=""))
-		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(1).up(3), nombre=""))
-		juego.agregarPersonaje(new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(6).down(2), nombre=""))
-		
+		const personajes = [
+			new Heroe(velocidad=10, habilidades=[piedrazo, tornado], position=game.center().left(5), nombre="Adelaide"),
+			new Heroe(velocidad=11, habilidades=[piedrazo, explosion], position=game.center().left(5).up(3), nombre="Dorothy"),
+			new Heroe(habilidades=[tornado, explosion], position=game.center().left(5).down(3), nombre="Sabrina"),
+			new Enemy(habilidades = [piedrazo, explosion, tornado], position=game.center().right(5).up(5), nombre="Draenor"),
+			new Enemy(habilidades = [piedrazo], position=game.center().right(7), nombre="PinoGris"),
+			new Enemy(habilidades = [tornado], position=game.center().right(5).down(3), nombre="Operativos"),
+			new Enemy(habilidades = [explosion], position=game.center().right(2), nombre="Shrek"),
+			new Enemy(habilidades = [piedrazo, explosion], position=game.center().right(1).up(3), nombre="Raul"),
+			new Enemy(habilidades = [piedrazo, tornado], position=game.center().right(6).down(2), nombre="Wollorc")
+		].forEach { personaje => juego.agregarPersonaje(personaje) }
+
 		juego.agregarTile(new Casa(position=game.center().down(2).left(2)))
 		juego.agregarTile(new Casa(position=game.center().down(2).left(3)))
 		juego.agregarTile(new Casa(position=game.center().down(2).left(4)))

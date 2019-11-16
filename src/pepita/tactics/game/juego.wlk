@@ -28,6 +28,7 @@ object juego {
 	method inicializar() {
 		menuItemDisplays.inicializar()
 		turnometro = new Turnometro(personajesOrdenados = unidades.values())
+		self.personajes().forEach { personaje => self.mostrarPersonaje(personaje) }
 		self.cambiarModo(turnometro.personajeActivo().modoDeTuTurno())
 	}
 	
@@ -63,11 +64,13 @@ object juego {
 
 	method agregarPersonaje(personaje) {
 		unidades.put(personaje.position(), personaje)
-		game.addVisual(personaje)
-		
 		const barritaDeVida = new BarritaDeVida(personaje=personaje)
-		game.addVisual(barritaDeVida)
 		barritasDeVidaDeUnidades.put(personaje, barritaDeVida)
+	}
+	
+	method mostrarPersonaje(personaje) {
+		game.addVisual(personaje)
+		game.addVisual(barritasDeVidaDeUnidades.get(personaje))
 	}
 	
 	method agregarTile(tile) {
@@ -96,7 +99,7 @@ object juego {
 	
 	method personajes() = unidades.values()
 	
-	method ataqueFueRealizadoEn(position, habilidad) = new OneTimeAnimation(animatedSprite=habilidad.animacion()).drawIn(position.left(1).down(1))
+	method ataqueFueRealizadoEn(position, habilidad) = new OneTimeAnimation(animatedSprite=habilidad.animacion()).drawIn(habilidad.posicionDeAnimacion(position))
 
 	method accionPrincipal() {
 		modo.accionPrincipal()
