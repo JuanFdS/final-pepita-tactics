@@ -13,4 +13,5 @@ El juego aún está incompleto, por ahora sólo tiene un nivel que se puede juga
 ## Desarrolladores
 
 Juan Manuel Fernandes dos Santos - https://github.com/juanFdS
+
 Marilú Pebes - https://github.com/mapeb
