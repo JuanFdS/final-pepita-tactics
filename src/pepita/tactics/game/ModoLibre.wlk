@@ -14,19 +14,7 @@ class ModoLibre inherits Modo {
 		selector.conUnidadSeleccionada{ unidad =>
 			unidad.validarQueEsTuTurno()
 
-			const modoMenuDeHeroe = new ModoMenu(position = unidad.position(), modoAnterior=self)
-
-			const modoMenuDeHabilidades = new ModoMenu(position = unidad.position(), modoAnterior=modoMenuDeHeroe)
-			unidad.habilidades().forEach { habilidad =>
-				const nuevoModoDeAtaque = new ModoAtaque(modoAnterior=modoMenuDeHabilidades, personaje=unidad, habilidad=habilidad)
-				modoMenuDeHabilidades.agregarCambioDeModo(habilidad.menuItemDisplay(), { nuevoModoDeAtaque })
-			}
-
-			modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.moverse(), { new ModoMovimiento(personaje=unidad, desdeDonde=unidad.position()) })
-			modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.atacar(), { modoMenuDeHabilidades })
-			modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.cancelar(), { new ModoLibre() })
-
-			juego.cambiarModo(modoMenuDeHeroe)
+			juego.cambiarModo(modoMenuDeHeroe.crear(unidad, self))
 		}
 	}
 

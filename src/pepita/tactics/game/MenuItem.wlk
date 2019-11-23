@@ -16,6 +16,8 @@ class MenuItem {
 	method accionPrincipal() {
 		accionPrincipal.apply()
 	}
+	
+	method tieneDisplay(unDisplay) = display == unDisplay
 }
 
 class MenuItemDisplay {
