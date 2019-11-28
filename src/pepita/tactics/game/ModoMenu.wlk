@@ -6,7 +6,28 @@ import pepita.tactics.game.MenuItem.*
 import pepita.tactics.game.menuItemDisplays.*
 import pepita.tactics.model.selector.*
 import pepita.tactics.game.ModoAtaque.*
+import pepita.tactics.game.ModoMovimiento.*
+import pepita.tactics.game.ModoLibre.*
 
+
+object modoMenuDeHeroe {
+	method crear(heroe, modoAnterior) {
+		const modoMenuDeHeroe = new ModoMenu(position = heroe.position(), modoAnterior=modoAnterior)
+
+		const modoMenuDeHabilidades = new ModoMenu(position = heroe.position(), modoAnterior=modoMenuDeHeroe)
+		heroe.habilidades().forEach { habilidad =>
+			const nuevoModoDeAtaque = new ModoAtaque(modoAnterior=modoMenuDeHabilidades, personaje=heroe, habilidad=habilidad)
+			modoMenuDeHabilidades.agregarCambioDeModo(habilidad.menuItemDisplay(), { nuevoModoDeAtaque })
+		}
+
+		modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.moverse(), { new ModoMovimiento(personaje=heroe, desdeDonde=heroe.position()) })
+		modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.atacar(), { modoMenuDeHabilidades })
+		modoMenuDeHeroe.agregarCambioDeModo(menuItemDisplays.cancelar(), { new ModoLibre() })
+		modoMenuDeHeroe.agregarAccion(menuItemDisplays.pasar(), { juego.avanzarTurno() })
+
+		return modoMenuDeHeroe
+	}
+}
 
 class ModoMenu inherits Modo {
 	var property menu = new Menu(items = [])
@@ -49,20 +70,9 @@ class ModoMenu inherits Modo {
 	method agregarCambioDeModo(display, obtenerNuevoModo) {
 		menu.agregarAccion(display, { juego.cambiarModo(obtenerNuevoModo.apply()) })
 	}
+	
+	method removerAccionConDisplay(display) {
+		menu.removerAccionConDisplay(display)
+	}
 }
 
-//object modoMenuDeHabilidades {
-//	method crear(position, modoAnterior, unidad) {
-//		const nuevoModoMenu = new ModoMenu(modoAnterior=modoAnterior, position=position)
-//	 	unidad.habilidades().forEach { habilidad =>
-//	 		const nuevoModoDeAtaque = new ModoAtaque(modoAnterior=nuevoModoMenu, personaje=unidad, habilidad=habilidad)
-//	 		nuevoModoMenu.agregarCambioDeModo(habilidad.menuItemDisplay(), { nuevoModoDeAtaque })
-//	 		new MenuItem(display = habilidad.menuItemDisplay(),
-//				 accionPrincipal = { juego.cambiarModo(new ModoAtaque(modoAnterior=self, personaje=unidad, habilidad=habilidad)) }
-//	 		)
-//	 	}
-//		const nuevoMenu = new Menu(items=menuitemsDeAtaques)
-//	 	nuevoModoMenu.menu(nuevoMenu)
-//	 	return nuevoModoMenu
-//	}
-//}

@@ -30,6 +30,11 @@ class Menu {
 		items.add(nuevoItem)
 		selectorMenu.reset()
 	}
+	
+	method removerAccionConDisplay(display) {
+		items.removeAllSuchThat { item => item.tieneDisplay(display) }
+		selectorMenu.reset()
+	}
 
 	method remove() {
 		items.forEach{ item => item.remove()}
