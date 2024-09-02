@@ -1,5 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-
-convert -size 100x50 xc:"#e8c89c" menu.png
-convert menu.png -fill none -stroke black -strokewidth 2 -draw "rectangle 0,0 100,50" menu.png
